@@ -131,7 +131,7 @@ function jtest_register_post_types() {
 		'show_ui'             => true,
 		'show_in_menu'        => true,
 		'menu_position'       => null,
-		'menu_icon'           => 'dashicons-format-quote',
+		'menu_icon'           => 'dashicons-testimonial',
 		'can_export'          => true,
 		'delete_with_user'    => false,
 		'hierarchical'        => false,
