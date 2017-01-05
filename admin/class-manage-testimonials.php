@@ -190,7 +190,7 @@ final class JTEST_Manage_Testimonials {
 
 		$new_columns = array(
 			'cb'    => $columns['cb'],
-			'title' => __( 'Testimonial', 'testimonials' )
+			'title' => __( 'Author', 'testimonials' )
 		);
 
 		// @todo - Author image/avatar.
