@@ -6,7 +6,7 @@
  * @subpackage Includes
  * @author     Justin Tadlock <justintadlock@gmail.com>
  * @copyright  Copyright (c) 2017, Justin Tadlock
- * @link       http://themehybrid.com/plugins/testimonials
+ * @link       http://themehybrid.com/plugins/toot
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 

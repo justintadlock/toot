@@ -6,7 +6,7 @@
  * @subpackage Admin
  * @author     Justin Tadlock <justintadlock@gmail.com>
  * @copyright  Copyright (c) 2017, Justin Tadlock
- * @link       http://themehybrid.com/plugins/testimonials
+ * @link       http://themehybrid.com/plugins/toot
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
@@ -131,7 +131,7 @@ final class Toot_Testimonial_Edit {
 
 		<div class="misc-pub-section curtime misc-pub-testimonial-sticky">
 
-			<?php wp_nonce_field( 'toot_testimonial_publish_box_nonce', 'toot_testimonial_publish_box' ); ?>
+			<?php wp_nonce_field( "stick_testimonial_{$post->ID}", 'toot_sticky_nonce' ); ?>
 
 			<i class="dashicons dashicons-sticky"></i>
 			<?php printf( esc_html__( 'Sticky: %s', 'toot' ), "<strong class='toot-sticky-status'>{$label}</strong>" ); ?>
@@ -155,17 +155,6 @@ final class Toot_Testimonial_Edit {
 	<?php }
 
 	/**
-	 * Output the testimonial details box.
-	 *
-	 * @since      1.0.0
-	 * @deprecated 2.0.0
-	 * @access     public
-	 * @param      object  $post
-	 * @return     void
-	 */
-	public function testimonial_details_box( $post ) {}
-
-	/**
 	 * Save testimonial details settings on post save.
 	 *
 	 * @since  1.0.0
@@ -176,7 +165,7 @@ final class Toot_Testimonial_Edit {
 	public function update( $post_id ) {
 
 		// Verify the nonce.
-		if ( ! isset( $_POST['toot_testimonial_publish_box'] ) || ! wp_verify_nonce( $_POST['toot_testimonial_publish_box'], 'toot_testimonial_publish_box_nonce' ) )
+		if ( ! toot_verify_nonce_post( "stick_testimonial_{$post_id}", 'toot_sticky_nonce' ) )
 			return;
 
 		// Is the sticky checkbox checked?

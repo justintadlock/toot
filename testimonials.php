@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Toot
- * Plugin URI:  http://themehybrid.com/plugins/testimonials
+ * Plugin URI:  http://themehybrid.com/plugins/toot
  * Description: Testimonials plugin in development.
  * Version:     1.0.0-dev
  * Author:      Justin Tadlock
@@ -27,7 +27,7 @@
  * @version   1.0.0
  * @author    Justin Tadlock <justintadlock@gmail.com>
  * @copyright Copyright (c) 2017, Justin Tadlock
- * @link      http://themehybrid.com/plugins/testimonials
+ * @link      http://themehybrid.com/plugins/toot
  * @license   http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
@@ -179,6 +179,7 @@ final class Toot_Plugin {
 
 		// Load functions files.
 		require_once( $this->dir_path . 'inc/functions-filters.php'     );
+		require_once( $this->dir_path . 'inc/functions-general.php'     );
 		require_once( $this->dir_path . 'inc/functions-options.php'     );
 		require_once( $this->dir_path . 'inc/functions-meta.php'        );
 		require_once( $this->dir_path . 'inc/functions-rewrite.php'     );
