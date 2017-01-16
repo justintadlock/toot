@@ -57,8 +57,8 @@ function toot_get_category_capabilities() {
 function toot_get_category_labels() {
 
 	$labels = array(
-		'name'                       => __( 'Categories',                           'toot' ),
-		'singular_name'              => __( 'Category',                             'toot' ),
+		'name'                       => __( 'Testimonial Categories',               'toot' ),
+		'singular_name'              => __( 'Testimonial Category',                 'toot' ),
 		'menu_name'                  => __( 'Categories',                           'toot' ),
 		'name_admin_bar'             => __( 'Category',                             'toot' ),
 		'search_items'               => __( 'Search Categories',                    'toot' ),
