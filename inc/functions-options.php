@@ -105,7 +105,7 @@ function toot_get_default_settings() {
 	$settings = array(
 		'archive_title'            => __( 'Testimonials', 'toot' ),
 		'archive_description'      => '',
-		'rewrite_base'             => 'toot',
+		'rewrite_base'             => 'testimonials',
 		'testimonial_rewrite_base' => '',
 		'category_rewrite_base'    => 'categories'
 	);
