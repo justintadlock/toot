@@ -50,8 +50,8 @@ final class Toot_Settings_Page {
 		// Create the settings page.
 		$this->settings_page = add_submenu_page(
 			'edit.php?post_type=' . toot_get_testimonial_post_type(),
-			esc_html__( 'Portfolio Settings', 'toot' ),
-			esc_html__( 'Settings',           'toot' ),
+			esc_html__( 'Toot Settings', 'toot' ),
+			esc_html__( 'Settings',      'toot' ),
 			apply_filters( 'toot_settings_capability', 'manage_options' ),
 			'toot-settings',
 			array( $this, 'settings_page' )
