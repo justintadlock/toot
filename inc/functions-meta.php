@@ -2,16 +2,16 @@
 /**
  * Registers metadata and related functions for the plugin.
  *
- * @package    Testimonails
+ * @package    Toot
  * @subpackage Includes
  * @author     Justin Tadlock <justintadlock@gmail.com>
- * @copyright  Copyright (c) 2013-2016, Justin Tadlock
+ * @copyright  Copyright (c) 2017, Justin Tadlock
  * @link       http://themehybrid.com/plugins/testimonials
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 # Register meta on the 'init' hook.
-add_action( 'init', 'jtest_register_meta' );
+add_action( 'init', 'toot_register_meta' );
 
 /**
  * Registers custom metadata for the plugin.
@@ -20,7 +20,7 @@ add_action( 'init', 'jtest_register_meta' );
  * @access public
  * @return void
  */
-function jtest_register_meta() {
+function toot_register_meta() {
 
 	register_meta(
 		'post',
@@ -54,7 +54,7 @@ function jtest_register_meta() {
  * @param  string  $meta_key
  * @return mixed
  */
-function jtest_get_testimonial_meta( $post_id, $meta_key ) {
+function toot_get_testimonial_meta( $post_id, $meta_key ) {
 
 	return get_post_meta( $post_id, $meta_key, true );
 }
@@ -69,7 +69,7 @@ function jtest_get_testimonial_meta( $post_id, $meta_key ) {
  * @param  mixed   $meta_value
  * @return bool
  */
-function jtest_set_testimonial_meta( $post_id, $meta_key, $meta_value ) {
+function toot_set_testimonial_meta( $post_id, $meta_key, $meta_value ) {
 
 	return update_post_meta( $post_id, $meta_key, $meta_value );
 }
@@ -83,7 +83,7 @@ function jtest_set_testimonial_meta( $post_id, $meta_key, $meta_value ) {
  * @param  string  $meta_key
  * @return mixed
  */
-function jtest_delete_testimonial_meta( $post_id, $meta_key ) {
+function toot_delete_testimonial_meta( $post_id, $meta_key ) {
 
 	return delete_post_meta( $post_id, $meta_key );
 }

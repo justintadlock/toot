@@ -2,38 +2,38 @@
 /**
  * Various functions, filters, and actions used by the plugin.
  *
- * @package    Testimonails
+ * @package    Toot
  * @subpackage Includes
  * @author     Justin Tadlock <justintadlock@gmail.com>
- * @copyright  Copyright (c) 2013-2016, Justin Tadlock
+ * @copyright  Copyright (c) 2017, Justin Tadlock
  * @link       http://themehybrid.com/plugins/testimonials
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 # Check theme support.
-add_action( 'wp_loaded', 'jtest_check_theme_support', 0 );
+add_action( 'wp_loaded', 'toot_check_theme_support', 0 );
 
 # Template hierarchy.
-add_filter( 'template_include', 'jtest_template_include', 5 );
+add_filter( 'template_include', 'toot_template_include', 5 );
 
 # Add sticky posts to the front of the line.
-add_filter( 'the_posts', 'jtest_posts_sticky_filter', 10, 2 );
+add_filter( 'the_posts', 'toot_posts_sticky_filter', 10, 2 );
 
 # Filter the post type archive title.
-add_filter( 'post_type_archive_title', 'jtest_post_type_archive_title', 5, 2 );
+add_filter( 'post_type_archive_title', 'toot_post_type_archive_title', 5, 2 );
 
 # Filter the archive title and description.
-add_filter( 'get_the_archive_title',       'jtest_get_the_archive_title',       5 );
-add_filter( 'get_the_archive_description', 'jtest_get_the_archive_description', 5 );
+add_filter( 'get_the_archive_title',       'toot_get_the_archive_title',       5 );
+add_filter( 'get_the_archive_description', 'toot_get_the_archive_description', 5 );
 
 # Filter the post type permalink.
-add_filter( 'post_type_link', 'jtest_post_type_link', 10, 2 );
+add_filter( 'post_type_link', 'toot_post_type_link', 10, 2 );
 
 # Force taxonomy term selection.
-add_action( 'save_post', 'jtest_force_term_selection' );
+add_action( 'save_post', 'toot_force_term_selection' );
 
 # Filter the Breadcrumb Trail plugin args.
-add_filter( 'breadcrumb_trail_args', 'jtest_breadcrumb_trail_args', 15 );
+add_filter( 'breadcrumb_trail_args', 'toot_breadcrumb_trail_args', 15 );
 
 /**
  * Checks if the theme supports `testimonials`.  If not, it runs specific filters
@@ -43,10 +43,10 @@ add_filter( 'breadcrumb_trail_args', 'jtest_breadcrumb_trail_args', 15 );
  * @access public
  * @return void
  */
-function jtest_check_theme_support() {
+function toot_check_theme_support() {
 
-	if ( ! current_theme_supports( 'testimonials' ) )
-		add_filter( 'the_content', 'jtest_the_content_filter', 25 );
+	if ( ! current_theme_supports( 'toot' ) )
+		add_filter( 'the_content', 'toot_the_content_filter', 25 );
 }
 
 /**
@@ -58,25 +58,25 @@ function jtest_check_theme_support() {
  * @param  string  $template
  * @return string
  */
-function jtest_template_include( $template ) {
+function toot_template_include( $template ) {
 
 	// Bail if not a portfolio page.
-	if ( ! jtest_is_testimonial_page() )
+	if ( ! toot_is_testimonial_page() )
 		return $template;
 
 	$templates = array();
 
 	// Author archive.
-	if ( jtest_is_category() ) {
+	if ( toot_is_category() ) {
 		$templates[] = 'testimonial-category.php';
 		$templates[] = 'testimonial-archive.php';
 
 	// Testimonial archive.
-	} else if ( jtest_is_testimonial_archive() ) {
+	} else if ( toot_is_testimonial_archive() ) {
 		$templates[] = 'testimonial-archive.php';
 
 	// Single testimonial.
-	} else if ( jtest_is_single_testimonial() ) {
+	} else if ( toot_is_single_testimonial() ) {
 		$templates[] = 'single-testimonial.php';
 	}
 
@@ -84,7 +84,7 @@ function jtest_template_include( $template ) {
 	$templates[] = 'testimonials.php';
 
 	// Check if we have a template.
-	$has_template = locate_template( apply_filters( 'jtest_template_hierarchy', $templates ) );
+	$has_template = locate_template( apply_filters( 'toot_template_hierarchy', $templates ) );
 
 	// Return the template.
 	return $has_template ? $has_template : $template;
@@ -99,9 +99,9 @@ function jtest_template_include( $template ) {
  * @param  string  $content
  * @return string
  */
-function jtest_the_content_filter( $content ) {
+function toot_the_content_filter( $content ) {
 
-	if ( in_the_loop() && jtest_is_single_testimonial() && jtest_is_testimonial() && ! post_password_required() ) {
+	if ( in_the_loop() && toot_is_single_testimonial() && toot_is_testimonial() && ! post_password_required() ) {
 
 		$testimonial_meta = '';
 
@@ -122,17 +122,17 @@ function jtest_the_content_filter( $content ) {
  * @param  object $query
  * @return array
  */
-function jtest_posts_sticky_filter( $posts, $query ) {
+function toot_posts_sticky_filter( $posts, $query ) {
 
 	// Allow devs to filter when to show sticky testimonials.
-	$show_stickies = apply_filters( 'jtest_show_stickies', $query->is_main_query() && ! is_admin() && jtest_is_testimonial_archive() && ! is_paged() );
+	$show_stickies = apply_filters( 'toot_show_stickies', $query->is_main_query() && ! is_admin() && toot_is_testimonial_archive() && ! is_paged() );
 
 	// If we should show stickies, let's get them.
 	if ( $show_stickies ) {
 
-		remove_filter( 'the_posts', 'jtest_posts_sticky_filter' );
+		remove_filter( 'the_posts', 'toot_posts_sticky_filter' );
 
-		$posts = jtest_add_stickies( $posts, jtest_get_sticky_testimonials() );
+		$posts = toot_add_stickies( $posts, toot_get_sticky_testimonials() );
 	}
 
 	return $posts;
@@ -147,7 +147,7 @@ function jtest_posts_sticky_filter( $posts, $query ) {
  * @param  array  $sticky_posts  Array of post IDs.
  * @return array
  */
-function jtest_add_stickies( $posts, $sticky_posts ) {
+function toot_add_stickies( $posts, $sticky_posts ) {
 
 	// Only do this if on the first page and we indeed have stickies.
 	if ( ! empty( $sticky_posts ) ) {
@@ -183,7 +183,7 @@ function jtest_add_stickies( $posts, $sticky_posts ) {
 
 			$args = array(
 					'post__in'    => $sticky_posts,
-					'post_type'   => jtest_get_testimonial_post_type(),
+					'post_type'   => toot_get_testimonial_post_type(),
 					'post_status' => 'publish',
 					'nopaging'    => true
 			);
@@ -210,11 +210,11 @@ function jtest_add_stickies( $posts, $sticky_posts ) {
  * @param  string  $post_type
  * @return string
  */
-function jtest_post_type_archive_title( $title, $post_type ) {
+function toot_post_type_archive_title( $title, $post_type ) {
 
-	$testimonial_type = jtest_get_testimonial_post_type();
+	$testimonial_type = toot_get_testimonial_post_type();
 
-	return $testimonial_type === $post_type ? get_post_type_object( jtest_get_testimonial_post_type() )->labels->archive_title : $title;
+	return $testimonial_type === $post_type ? get_post_type_object( toot_get_testimonial_post_type() )->labels->archive_title : $title;
 }
 
 /**
@@ -226,9 +226,9 @@ function jtest_post_type_archive_title( $title, $post_type ) {
  * @param  string  $title
  * @return string
  */
-function jtest_get_the_archive_title( $title ) {
+function toot_get_the_archive_title( $title ) {
 
-	if ( jtest_is_testimonial_archive() )
+	if ( toot_is_testimonial_archive() )
 		$title = post_type_archive_title( '', false );
 
 	return $title;
@@ -242,10 +242,10 @@ function jtest_get_the_archive_title( $title ) {
  * @param  string  $desc
  * @return string
  */
-function jtest_get_the_archive_description( $desc ) {
+function toot_get_the_archive_description( $desc ) {
 
-	if ( jtest_is_testimonial_archive() && ! $desc )
-		$desc = jtest_get_portfolio_description();
+	if ( toot_is_testimonial_archive() && ! $desc )
+		$desc = toot_get_portfolio_description();
 
 	return $desc;
 }
@@ -260,13 +260,13 @@ function jtest_get_the_archive_description( $desc ) {
  * @param  object  $post
  * @return string
  */
-function jtest_post_type_link( $post_link, $post ) {
+function toot_post_type_link( $post_link, $post ) {
 
 	// Bail if this isn't a portfolio testimonial.
-	if ( jtest_get_testimonial_post_type() !== $post->post_type )
+	if ( toot_get_testimonial_post_type() !== $post->post_type )
 		return $post_link;
 
-	$cat_taxonomy = jtest_get_category_taxonomy();
+	$cat_taxonomy = toot_get_category_taxonomy();
 	$category     = '';
 
 	// Check for the category.
@@ -302,15 +302,15 @@ function jtest_post_type_link( $post_link, $post ) {
  * @param  int    $post_id
  * @return void
  */
-function jtest_force_term_selection( $post_id ) {
+function toot_force_term_selection( $post_id ) {
 
-	if ( jtest_is_testimonial( $post_id ) ) {
+	if ( toot_is_testimonial( $post_id ) ) {
 
-		$testimonial_base = jtest_get_testimonial_rewrite_base();
-		$cat_tax          = jtest_get_category_taxonomy();
+		$testimonial_base = toot_get_testimonial_rewrite_base();
+		$cat_tax          = toot_get_category_taxonomy();
 
 		if ( false !== strpos( $testimonial_base, "%{$cat_tax}%" ) )
-			jtest_set_term_if_none( $post_id, $cat_tax, jtest_get_default_category() );
+			toot_set_term_if_none( $post_id, $cat_tax, toot_get_default_category() );
 	}
 }
 
@@ -325,7 +325,7 @@ function jtest_force_term_selection( $post_id ) {
  * @param  int     $default
  * @return void
  */
-function jtest_set_term_if_none( $post_id, $taxonomy, $default = 0 ) {
+function toot_set_term_if_none( $post_id, $taxonomy, $default = 0 ) {
 
 	// Get the current post terms.
 	$terms = wp_get_post_terms( $post_id, $taxonomy );
@@ -369,13 +369,13 @@ function jtest_set_term_if_none( $post_id, $taxonomy, $default = 0 ) {
  * @param  array  $args
  * @return array
  */
-function jtest_breadcrumb_trail_args( $args ) {
+function toot_breadcrumb_trail_args( $args ) {
 
-	$testimonial_type = jtest_get_testimonial_post_type();
-	$testimonial_base = jtest_get_testimonial_rewrite_base();
+	$testimonial_type = toot_get_testimonial_post_type();
+	$testimonial_base = toot_get_testimonial_rewrite_base();
 
 	if ( false === strpos( $testimonial_base, '%' ) && ! isset( $args['post_taxonomy'][ $testimonial_type ] ) )
-		$args['post_taxonomy'][ $testimonial_type ] = jtest_get_category_taxonomy();
+		$args['post_taxonomy'][ $testimonial_type ] = toot_get_category_taxonomy();
 
 	return $args;
 }

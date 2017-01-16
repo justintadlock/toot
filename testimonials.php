@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Codename - Hybrid Testimonails
+ * Plugin Name: Toot
  * Plugin URI:  http://themehybrid.com/plugins/testimonials
  * Description: Testimonials plugin in development.
  * Version:     1.0.0-dev
@@ -9,7 +9,7 @@
  * Text Domain: testimonials
  * Domain Path: /languages
  *
- * The Testimonails plugin was created to solve the problem of theme developers continuing
+ * The Toot plugin was created to solve the problem of theme developers continuing
  * to incorrectly add custom post types to handle portfolios within their themes.  This plugin allows
  * any theme developer to build a "portfolio" theme without having to code the functionality.  This
  * gives more time for design and makes users happy because their data isn't lost when they switch to
@@ -23,10 +23,10 @@
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
  * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @package   Testimonails
+ * @package   Toot
  * @version   1.0.0
  * @author    Justin Tadlock <justintadlock@gmail.com>
- * @copyright Copyright (c) 2013-2016, Justin Tadlock
+ * @copyright Copyright (c) 2017, Justin Tadlock
  * @link      http://themehybrid.com/plugins/testimonials
  * @license   http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
@@ -38,7 +38,7 @@
  * @access public
  * @return void
  */
-final class JTEST_Plugin {
+final class Toot_Plugin {
 
 	/**
 	 * Directory path to the plugin folder.
@@ -114,7 +114,7 @@ final class JTEST_Plugin {
 	 * @return void
 	 */
 	public function __toString() {
-		return 'testimonials';
+		return 'toot';
 	}
 
 	/**
@@ -125,7 +125,7 @@ final class JTEST_Plugin {
 	 * @return void
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Whoah, partner!', 'testimonials' ), '1.0.0' );
+		_doing_it_wrong( __FUNCTION__, __( 'Whoah, partner!', 'toot' ), '1.0.0' );
 	}
 
 	/**
@@ -136,7 +136,7 @@ final class JTEST_Plugin {
 	 * @return void
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Whoah, partner!', 'testimonials' ), '1.0.0' );
+		_doing_it_wrong( __FUNCTION__, __( 'Whoah, partner!', 'toot' ), '1.0.0' );
 	}
 
 	/**
@@ -147,7 +147,7 @@ final class JTEST_Plugin {
 	 * @return void
 	 */
 	public function __call( $method = '', $args = array() ) {
-		_doing_it_wrong( "JTEST_Plugin::{$method}", __( 'Method does not exist.', 'testimonials' ), '1.0.0' );
+		_doing_it_wrong( "Toot_Plugin::{$method}", __( 'Method does not exist.', 'toot' ), '1.0.0' );
 		unset( $method, $args );
 		return null;
 	}
@@ -225,7 +225,7 @@ final class JTEST_Plugin {
 	 */
 	public function i18n() {
 
-		load_plugin_textdomain( 'testimonials', false, trailingslashit( dirname( plugin_basename( __FILE__ ) ) ) . 'languages' );
+		load_plugin_textdomain( 'toot', false, trailingslashit( dirname( plugin_basename( __FILE__ ) ) ) . 'languages' );
 	}
 
 	/**
@@ -264,16 +264,16 @@ final class JTEST_Plugin {
 }
 
 /**
- * Gets the instance of the `JTEST_Plugin` class.  This function is useful for quickly grabbing data
+ * Gets the instance of the `Toot_Plugin` class.  This function is useful for quickly grabbing data
  * used throughout the plugin.
  *
  * @since  1.0.0
  * @access public
  * @return object
  */
-function jtest_plugin() {
-	return JTEST_Plugin::get_instance();
+function toot_plugin() {
+	return Toot_Plugin::get_instance();
 }
 
 // Let's do this thang!
-jtest_plugin();
+toot_plugin();

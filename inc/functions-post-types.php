@@ -2,23 +2,23 @@
 /**
  * File for registering custom post types.
  *
- * @package    Testimonails
+ * @package    Toot
  * @subpackage Includes
  * @author     Justin Tadlock <justintadlock@gmail.com>
- * @copyright  Copyright (c) 2013-2016, Justin Tadlock
+ * @copyright  Copyright (c) 2017, Justin Tadlock
  * @link       http://themehybrid.com/plugins/testimonials
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 # Register custom post types on the 'init' hook.
-add_action( 'init', 'jtest_register_post_types' );
+add_action( 'init', 'toot_register_post_types' );
 
 # Filter the "enter title here" text.
-add_filter( 'enter_title_here', 'jtest_enter_title_here', 10, 2 );
+add_filter( 'enter_title_here', 'toot_enter_title_here', 10, 2 );
 
 # Filter the bulk and post updated messages.
-add_filter( 'bulk_post_updated_messages', 'jtest_bulk_post_updated_messages', 5, 2 );
-add_filter( 'post_updated_messages',      'jtest_post_updated_messages',      5    );
+add_filter( 'bulk_post_updated_messages', 'toot_bulk_post_updated_messages', 5, 2 );
+add_filter( 'post_updated_messages',      'toot_post_updated_messages',      5    );
 
 /**
  * Returns the name of the testimonial post type.
@@ -27,9 +27,9 @@ add_filter( 'post_updated_messages',      'jtest_post_updated_messages',      5 
  * @access public
  * @return string
  */
-function jtest_get_testimonial_post_type() {
+function toot_get_testimonial_post_type() {
 
-	return apply_filters( 'jtest_get_testimonial_post_type', 'testimonial' );
+	return apply_filters( 'toot_get_testimonial_post_type', 'testimonial' );
 }
 
 /**
@@ -39,7 +39,7 @@ function jtest_get_testimonial_post_type() {
  * @access public
  * @return array
  */
-function jtest_get_testimonial_capabilities() {
+function toot_get_testimonial_capabilities() {
 
 	$caps = array(
 
@@ -67,7 +67,7 @@ function jtest_get_testimonial_capabilities() {
 		'edit_published_posts'   => 'edit_published_testimonials'
 	);
 
-	return apply_filters( 'jtest_get_testimonial_capabilities', $caps );
+	return apply_filters( 'toot_get_testimonial_capabilities', $caps );
 }
 
 /**
@@ -77,38 +77,38 @@ function jtest_get_testimonial_capabilities() {
  * @access public
  * @return array
  */
-function jtest_get_testimonial_labels() {
+function toot_get_testimonial_labels() {
 
 	$labels = array(
-		'name'                  => __( 'Testimonials',                   'testimonials' ),
-		'singular_name'         => __( 'Testimonial',                    'testimonials' ),
-		'menu_name'             => __( 'Testimonials',                   'testimonials' ),
-		'name_admin_bar'        => __( 'Testimonial',                    'testimonials' ),
-		'add_new'               => __( 'New Testimonial',                'testimonials' ),
-		'add_new_item'          => __( 'Add New Testimonial',            'testimonials' ),
-		'edit_item'             => __( 'Edit Testimonial',               'testimonials' ),
-		'new_item'              => __( 'New Testimonial',                'testimonials' ),
-		'view_item'             => __( 'View Testimonial',               'testimonials' ),
-		'view_items'            => __( 'View Testimonials',              'testimonials' ),
-		'search_items'          => __( 'Search Testimonials',            'testimonials' ),
-		'not_found'             => __( 'No testimonials found',          'testimonials' ),
-		'not_found_in_trash'    => __( 'No testimonials found in trash', 'testimonials' ),
-		'all_items'             => __( 'Testimonials',                   'testimonials' ),
-		'featured_image'        => __( 'Author Image',                   'testimonials' ),
-		'set_featured_image'    => __( 'Set author image',               'testimonials' ),
-		'remove_featured_image' => __( 'Remove author image',            'testimonials' ),
-		'use_featured_image'    => __( 'Use as author image',            'testimonials' ),
-		'insert_into_item'      => __( 'Insert into testimonial',        'testimonials' ),
-		'uploaded_to_this_item' => __( 'Uploaded to this testimonial',   'testimonials' ),
-		'filter_items_list'     => __( 'Filter testimonials list',       'testimonials' ),
-		'items_list_navigation' => __( 'Testimonials list navigation',   'testimonials' ),
-		'items_list'            => __( 'Testimonials list',              'testimonials' ),
+		'name'                  => __( 'Testimonials',                   'toot' ),
+		'singular_name'         => __( 'Testimonial',                    'toot' ),
+		'menu_name'             => __( 'Testimonials',                   'toot' ),
+		'name_admin_bar'        => __( 'Testimonial',                    'toot' ),
+		'add_new'               => __( 'New Testimonial',                'toot' ),
+		'add_new_item'          => __( 'Add New Testimonial',            'toot' ),
+		'edit_item'             => __( 'Edit Testimonial',               'toot' ),
+		'new_item'              => __( 'New Testimonial',                'toot' ),
+		'view_item'             => __( 'View Testimonial',               'toot' ),
+		'view_items'            => __( 'View Testimonials',              'toot' ),
+		'search_items'          => __( 'Search Testimonials',            'toot' ),
+		'not_found'             => __( 'No testimonials found',          'toot' ),
+		'not_found_in_trash'    => __( 'No testimonials found in trash', 'toot' ),
+		'all_items'             => __( 'Testimonials',                   'toot' ),
+		'featured_image'        => __( 'Author Image',                   'toot' ),
+		'set_featured_image'    => __( 'Set author image',               'toot' ),
+		'remove_featured_image' => __( 'Remove author image',            'toot' ),
+		'use_featured_image'    => __( 'Use as author image',            'toot' ),
+		'insert_into_item'      => __( 'Insert into testimonial',        'toot' ),
+		'uploaded_to_this_item' => __( 'Uploaded to this testimonial',   'toot' ),
+		'filter_items_list'     => __( 'Filter testimonials list',       'toot' ),
+		'items_list_navigation' => __( 'Testimonials list navigation',   'toot' ),
+		'items_list'            => __( 'Testimonials list',              'toot' ),
 
 		// Custom labels b/c WordPress doesn't have anything to handle this.
-		'archive_title'         => jtest_get_archive_title(),
+		'archive_title'         => toot_get_archive_title(),
 	);
 
-	return apply_filters( 'jtest_get_testimonial_labels', $labels );
+	return apply_filters( 'toot_get_testimonial_labels', $labels );
 }
 
 /**
@@ -118,11 +118,11 @@ function jtest_get_testimonial_labels() {
  * @access public
  * @return void
  */
-function jtest_register_post_types() {
+function toot_register_post_types() {
 
 	// Set up the arguments for the portfolio testimonial post type.
 	$testimonial_args = array(
-		'description'         => jtest_get_archive_description(),
+		'description'         => toot_get_archive_description(),
 		'public'              => true,
 		'publicly_queryable'  => true,
 		'show_in_nav_menus'   => false,
@@ -135,16 +135,16 @@ function jtest_register_post_types() {
 		'can_export'          => true,
 		'delete_with_user'    => false,
 		'hierarchical'        => false,
-		'has_archive'         => jtest_get_rewrite_base(),
-		'query_var'           => jtest_get_testimonial_post_type(),
+		'has_archive'         => toot_get_rewrite_base(),
+		'query_var'           => toot_get_testimonial_post_type(),
 		'capability_type'     => 'testimonial',
 		'map_meta_cap'        => true,
-		'capabilities'        => jtest_get_testimonial_capabilities(),
-		'labels'              => jtest_get_testimonial_labels(),
+		'capabilities'        => toot_get_testimonial_capabilities(),
+		'labels'              => toot_get_testimonial_labels(),
 
 		// The rewrite handles the URL structure.
 		'rewrite' => array(
-			'slug'       => jtest_get_testimonial_rewrite_slug(),
+			'slug'       => toot_get_testimonial_rewrite_slug(),
 			'with_front' => false,
 			'pages'      => true,
 			'feeds'      => true,
@@ -164,7 +164,7 @@ function jtest_register_post_types() {
 	);
 
 	// Register the post types.
-	register_post_type( jtest_get_testimonial_post_type(), apply_filters( 'jtest_testimonial_post_type_args', $testimonial_args ) );
+	register_post_type( toot_get_testimonial_post_type(), apply_filters( 'toot_testimonial_post_type_args', $testimonial_args ) );
 }
 
 /**
@@ -176,9 +176,9 @@ function jtest_register_post_types() {
  * @param  object  $post
  * @return string
  */
-function jtest_enter_title_here( $title, $post ) {
+function toot_enter_title_here( $title, $post ) {
 
-	return jtest_get_testimonial_post_type() === $post->post_type ? esc_html__( 'Enter testimonial author', 'testimonials' ) : $title;
+	return toot_get_testimonial_post_type() === $post->post_type ? esc_html__( 'Enter testimonial author', 'toot' ) : $title;
 }
 
 /**
@@ -191,10 +191,10 @@ function jtest_enter_title_here( $title, $post ) {
  * @global int    $post_ID
  * @return array
  */
-function jtest_post_updated_messages( $messages ) {
+function toot_post_updated_messages( $messages ) {
 	global $post, $post_ID;
 
-	$testimonial_type = jtest_get_testimonial_post_type();
+	$testimonial_type = toot_get_testimonial_post_type();
 
 	if ( $testimonial_type !== $post->post_type )
 		return $messages;
@@ -204,24 +204,24 @@ function jtest_post_updated_messages( $messages ) {
 	$preview_url = get_preview_post_link( $post );
 
 	// Translators: Scheduled testimonial date format. See http://php.net/date
-	$scheduled_date = date_i18n( __( 'M j, Y @ H:i', 'testimonials' ), strtotime( $post->post_date ) );
+	$scheduled_date = date_i18n( __( 'M j, Y @ H:i', 'toot' ), strtotime( $post->post_date ) );
 
 	// Set up view links.
-	$preview_link   = sprintf( ' <a target="_blank" href="%1$s">%2$s</a>', esc_url( $preview_url ), esc_html__( 'Preview testimonial', 'testimonials' ) );
-	$scheduled_link = sprintf( ' <a target="_blank" href="%1$s">%2$s</a>', esc_url( $permalink ),   esc_html__( 'Preview testimonial', 'testimonials' ) );
-	$view_link      = sprintf( ' <a href="%1$s">%2$s</a>',                 esc_url( $permalink ),   esc_html__( 'View testimonial',    'testimonials' ) );
+	$preview_link   = sprintf( ' <a target="_blank" href="%1$s">%2$s</a>', esc_url( $preview_url ), esc_html__( 'Preview testimonial', 'toot' ) );
+	$scheduled_link = sprintf( ' <a target="_blank" href="%1$s">%2$s</a>', esc_url( $permalink ),   esc_html__( 'Preview testimonial', 'toot' ) );
+	$view_link      = sprintf( ' <a href="%1$s">%2$s</a>',                 esc_url( $permalink ),   esc_html__( 'View testimonial',    'toot' ) );
 
 	// Post updated messages.
 	$messages[ $testimonial_type ] = array(
-		 1 => esc_html__( 'Testimonial updated.', 'testimonials' ) . $view_link,
-		 4 => esc_html__( 'Testimonial updated.', 'testimonials' ),
+		 1 => esc_html__( 'Testimonial updated.', 'toot' ) . $view_link,
+		 4 => esc_html__( 'Testimonial updated.', 'toot' ),
 		 // Translators: %s is the date and time of the revision.
-		 5 => isset( $_GET['revision'] ) ? sprintf( esc_html__( 'Testimonial restored to revision from %s.', 'testimonials' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-		 6 => esc_html__( 'Testimonial published.', 'testimonials' ) . $view_link,
-		 7 => esc_html__( 'Testimonial saved.', 'testimonials' ),
-		 8 => esc_html__( 'Testimonial submitted.', 'testimonials' ) . $preview_link,
-		 9 => sprintf( esc_html__( 'Testimonial scheduled for: %s.', 'testimonials' ), "<strong>{$scheduled_date}</strong>" ) . $scheduled_link,
-		10 => esc_html__( 'Testimonial draft updated.', 'testimonials' ) . $preview_link,
+		 5 => isset( $_GET['revision'] ) ? sprintf( esc_html__( 'Testimonial restored to revision from %s.', 'toot' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+		 6 => esc_html__( 'Testimonial published.', 'toot' ) . $view_link,
+		 7 => esc_html__( 'Testimonial saved.', 'toot' ),
+		 8 => esc_html__( 'Testimonial submitted.', 'toot' ) . $preview_link,
+		 9 => sprintf( esc_html__( 'Testimonial scheduled for: %s.', 'toot' ), "<strong>{$scheduled_date}</strong>" ) . $scheduled_link,
+		10 => esc_html__( 'Testimonial draft updated.', 'toot' ) . $preview_link,
 	);
 
 	return $messages;
@@ -236,15 +236,15 @@ function jtest_post_updated_messages( $messages ) {
  * @param  array  $counts
  * @return array
  */
-function jtest_bulk_post_updated_messages( $messages, $counts ) {
+function toot_bulk_post_updated_messages( $messages, $counts ) {
 
-	$type = jtest_get_testimonial_post_type();
+	$type = toot_get_testimonial_post_type();
 
-	$messages[ $type ]['updated']   = _n( '%s testimonial updated.',                             '%s testimonials updated.',                               $counts['updated'],   'testimonials' );
-	$messages[ $type ]['locked']    = _n( '%s testimonial not updated, somebody is editing it.', '%s testimonials not updated, somebody is editing them.', $counts['locked'],    'testimonials' );
-	$messages[ $type ]['deleted']   = _n( '%s testimonial permanently deleted.',                 '%s testimonials permanently deleted.',                   $counts['deleted'],   'testimonials' );
-	$messages[ $type ]['trashed']   = _n( '%s testimonial moved to the Trash.',                  '%s testimonials moved to the trash.',                    $counts['trashed'],   'testimonials' );
-	$messages[ $type ]['untrashed'] = _n( '%s testimonial restored from the Trash.',             '%s testimonials restored from the trash.',               $counts['untrashed'], 'testimonials' );
+	$messages[ $type ]['updated']   = _n( '%s testimonial updated.',                             '%s testimonials updated.',                               $counts['updated'],   'toot' );
+	$messages[ $type ]['locked']    = _n( '%s testimonial not updated, somebody is editing it.', '%s testimonials not updated, somebody is editing them.', $counts['locked'],    'toot' );
+	$messages[ $type ]['deleted']   = _n( '%s testimonial permanently deleted.',                 '%s testimonials permanently deleted.',                   $counts['deleted'],   'toot' );
+	$messages[ $type ]['trashed']   = _n( '%s testimonial moved to the Trash.',                  '%s testimonials moved to the trash.',                    $counts['trashed'],   'toot' );
+	$messages[ $type ]['untrashed'] = _n( '%s testimonial restored from the Trash.',             '%s testimonials restored from the trash.',               $counts['untrashed'], 'toot' );
 
 	return $messages;
 }

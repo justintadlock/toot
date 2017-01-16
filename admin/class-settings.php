@@ -2,10 +2,10 @@
 /**
  * Plugin settings screen.
  *
- * @package    Testimonails
+ * @package    Toot
  * @subpackage Admin
  * @author     Justin Tadlock <justintadlock@gmail.com>
- * @copyright  Copyright (c) 2013-2016, Justin Tadlock
+ * @copyright  Copyright (c) 2017, Justin Tadlock
  * @link       http://themehybrid.com/plugins/testimonials
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
@@ -16,7 +16,7 @@
  * @since  1.0.0
  * @access public
  */
-final class JTEST_Settings_Page {
+final class Toot_Settings_Page {
 
 	/**
 	 * Settings page name.
@@ -49,11 +49,11 @@ final class JTEST_Settings_Page {
 
 		// Create the settings page.
 		$this->settings_page = add_submenu_page(
-			'edit.php?post_type=' . jtest_get_testimonial_post_type(),
-			esc_html__( 'Portfolio Settings', 'testimonials' ),
-			esc_html__( 'Settings',           'testimonials' ),
-			apply_filters( 'jtest_settings_capability', 'manage_options' ),
-			'jtest-settings',
+			'edit.php?post_type=' . toot_get_testimonial_post_type(),
+			esc_html__( 'Portfolio Settings', 'toot' ),
+			esc_html__( 'Settings',           'toot' ),
+			apply_filters( 'toot_settings_capability', 'manage_options' ),
+			'toot-settings',
 			array( $this, 'settings_page' )
 		);
 
@@ -77,23 +77,23 @@ final class JTEST_Settings_Page {
 	function register_settings() {
 
 		// Register the setting.
-		register_setting( 'jtest_settings', 'jtest_settings', array( $this, 'validate_settings' ) );
+		register_setting( 'toot_settings', 'toot_settings', array( $this, 'validate_settings' ) );
 
 		/* === Settings Sections === */
 
-		add_settings_section( 'general',    esc_html__( 'General Settings', 'testimonials' ), array( $this, 'section_general'    ), $this->settings_page );
-		add_settings_section( 'permalinks', esc_html__( 'Permalinks',       'testimonials' ), array( $this, 'section_permalinks' ), $this->settings_page );
+		add_settings_section( 'general',    esc_html__( 'General Settings', 'toot' ), array( $this, 'section_general'    ), $this->settings_page );
+		add_settings_section( 'permalinks', esc_html__( 'Permalinks',       'toot' ), array( $this, 'section_permalinks' ), $this->settings_page );
 
 		/* === Settings Fields === */
 
 		// General section fields
-		add_settings_field( 'archive_title',       esc_html__( 'Title',       'testimonials' ), array( $this, 'field_archive_title'       ), $this->settings_page, 'general' );
-		add_settings_field( 'archive_description', esc_html__( 'Description', 'testimonials' ), array( $this, 'field_archive_description' ), $this->settings_page, 'general' );
+		add_settings_field( 'archive_title',       esc_html__( 'Title',       'toot' ), array( $this, 'field_archive_title'       ), $this->settings_page, 'general' );
+		add_settings_field( 'archive_description', esc_html__( 'Description', 'toot' ), array( $this, 'field_archive_description' ), $this->settings_page, 'general' );
 
 		// Permalinks section fields.
-		add_settings_field( 'rewrite_base',             esc_html__( 'Rewrite Base',     'testimonials' ), array( $this, 'field_rewrite_base'             ), $this->settings_page, 'permalinks' );
-		add_settings_field( 'testimonial_rewrite_base', esc_html__( 'Testimonial Slug', 'testimonials' ), array( $this, 'field_testimonial_rewrite_base' ), $this->settings_page, 'permalinks' );
-		add_settings_field( 'category_rewrite_base',    esc_html__( 'Category Slug',    'testimonials' ), array( $this, 'field_category_rewrite_base'    ), $this->settings_page, 'permalinks' );
+		add_settings_field( 'rewrite_base',             esc_html__( 'Rewrite Base',     'toot' ), array( $this, 'field_rewrite_base'             ), $this->settings_page, 'permalinks' );
+		add_settings_field( 'testimonial_rewrite_base', esc_html__( 'Testimonial Slug', 'toot' ), array( $this, 'field_testimonial_rewrite_base' ), $this->settings_page, 'permalinks' );
+		add_settings_field( 'category_rewrite_base',    esc_html__( 'Category Slug',    'toot' ), array( $this, 'field_category_rewrite_base'    ), $this->settings_page, 'permalinks' );
 	}
 
 	/**
@@ -107,10 +107,10 @@ final class JTEST_Settings_Page {
 	function validate_settings( $settings ) {
 
 		// Text boxes.
-		$settings['rewrite_base']             = $settings['rewrite_base']             ? trim( strip_tags( $settings['rewrite_base'] ), '/' )             : 'testimonials';
+		$settings['rewrite_base']             = $settings['rewrite_base']             ? trim( strip_tags( $settings['rewrite_base'] ), '/' )             : 'toot';
 		$settings['testimonial_rewrite_base'] = $settings['testimonial_rewrite_base'] ? trim( strip_tags( $settings['testimonial_rewrite_base'] ), '/' ) : '';
 		$settings['category_rewrite_base']    = $settings['category_rewrite_base']    ? trim( strip_tags( $settings['category_rewrite_base']  ), '/' )   : '';
-		$settings['archive_title']            = $settings['archive_title']            ? strip_tags( $settings['archive_title'] )                         : esc_html__( 'Testimonials', 'testimonials' );
+		$settings['archive_title']            = $settings['archive_title']            ? strip_tags( $settings['archive_title'] )                         : esc_html__( 'Testimonials', 'toot' );
 
 		// Kill evil scripts.
 		$settings['archive_description'] = stripslashes( wp_filter_post_kses( addslashes( $settings['archive_description'] ) ) );
@@ -135,7 +135,7 @@ final class JTEST_Settings_Page {
 	public function section_general() { ?>
 
 		<p class="description">
-			<?php esc_html_e( 'General testimonial settings for your site.', 'testimonials' ); ?>
+			<?php esc_html_e( 'General testimonial settings for your site.', 'toot' ); ?>
 		</p>
 	<?php }
 
@@ -149,9 +149,9 @@ final class JTEST_Settings_Page {
 	public function field_archive_title() { ?>
 
 		<label>
-			<input type="text" class="regular-text" name="jtest_settings[archive_title]" value="<?php echo esc_attr( jtest_get_archive_title() ); ?>" />
+			<input type="text" class="regular-text" name="toot_settings[archive_title]" value="<?php echo esc_attr( toot_get_archive_title() ); ?>" />
 			<br />
-			<span class="description"><?php esc_html_e( 'The name of your testimonials. May be used for the testimonials archive title and other places, depending on your theme.', 'testimonials' ); ?></span>
+			<span class="description"><?php esc_html_e( 'The name of your testimonials. May be used for the testimonials archive title and other places, depending on your theme.', 'toot' ); ?></span>
 		</label>
 	<?php }
 
@@ -165,17 +165,17 @@ final class JTEST_Settings_Page {
 	public function field_archive_description() {
 
 		wp_editor(
-			jtest_get_archive_description(),
-			'jtest_archive_description',
+			toot_get_archive_description(),
+			'toot_archive_description',
 			array(
-				'textarea_name'    => 'jtest_settings[archive_description]',
+				'textarea_name'    => 'toot_settings[archive_description]',
 				'drag_drop_upload' => true,
 				'editor_height'    => 150
 			)
 		); ?>
 
 		<p>
-			<span class="description"><?php esc_html_e( 'Your testimonials description. This may be shown by your theme on the testimonials archive page.', 'testimonials' ); ?></span>
+			<span class="description"><?php esc_html_e( 'Your testimonials description. This may be shown by your theme on the testimonials archive page.', 'toot' ); ?></span>
 		</p>
 	<?php }
 
@@ -189,7 +189,7 @@ final class JTEST_Settings_Page {
 	public function section_permalinks() { ?>
 
 		<p class="description">
-			<?php esc_html_e( 'Set up custom permalinks for the testimonials section on your site.', 'testimonials' ); ?>
+			<?php esc_html_e( 'Set up custom permalinks for the testimonials section on your site.', 'toot' ); ?>
 		</p>
 	<?php }
 
@@ -204,7 +204,7 @@ final class JTEST_Settings_Page {
 
 		<label>
 			<code><?php echo esc_url( home_url( '/' ) ); ?></code>
-			<input type="text" class="regular-text code" name="jtest_settings[rewrite_base]" value="<?php echo esc_attr( jtest_get_rewrite_base() ); ?>" />
+			<input type="text" class="regular-text code" name="toot_settings[rewrite_base]" value="<?php echo esc_attr( toot_get_rewrite_base() ); ?>" />
 		</label>
 	<?php }
 
@@ -218,8 +218,8 @@ final class JTEST_Settings_Page {
 	public function field_testimonial_rewrite_base() { ?>
 
 		<label>
-			<code><?php echo esc_url( home_url( jtest_get_rewrite_base() . '/' ) ); ?></code>
-			<input type="text" class="regular-text code" name="jtest_settings[testimonial_rewrite_base]" value="<?php echo esc_attr( jtest_get_testimonial_rewrite_base() ); ?>" />
+			<code><?php echo esc_url( home_url( toot_get_rewrite_base() . '/' ) ); ?></code>
+			<input type="text" class="regular-text code" name="toot_settings[testimonial_rewrite_base]" value="<?php echo esc_attr( toot_get_testimonial_rewrite_base() ); ?>" />
 		</label>
 	<?php }
 
@@ -233,8 +233,8 @@ final class JTEST_Settings_Page {
 	public function field_category_rewrite_base() { ?>
 
 		<label>
-			<code><?php echo esc_url( home_url( jtest_get_rewrite_base() . '/' ) ); ?></code>
-			<input type="text" class="regular-text code" name="jtest_settings[category_rewrite_base]" value="<?php echo esc_attr( jtest_get_category_rewrite_base() ); ?>" />
+			<code><?php echo esc_url( home_url( toot_get_rewrite_base() . '/' ) ); ?></code>
+			<input type="text" class="regular-text code" name="toot_settings[category_rewrite_base]" value="<?php echo esc_attr( toot_get_category_rewrite_base() ); ?>" />
 		</label>
 	<?php }
 
@@ -252,14 +252,14 @@ final class JTEST_Settings_Page {
 			flush_rewrite_rules(); ?>
 
 		<div class="wrap">
-			<h1><?php esc_html_e( 'Settings', 'testimonials' ); ?></h1>
+			<h1><?php esc_html_e( 'Settings', 'toot' ); ?></h1>
 
 			<?php settings_errors(); ?>
 
 			<form method="post" action="options.php">
-				<?php settings_fields( 'jtest_settings' ); ?>
+				<?php settings_fields( 'toot_settings' ); ?>
 				<?php do_settings_sections( $this->settings_page ); ?>
-				<?php submit_button( esc_attr__( 'Update Settings', 'testimonials' ), 'primary' ); ?>
+				<?php submit_button( esc_attr__( 'Update Settings', 'toot' ), 'primary' ); ?>
 			</form>
 
 		</div><!-- wrap -->
@@ -281,7 +281,7 @@ final class JTEST_Settings_Page {
 		$screen->add_help_tab(
 			array(
 				'id'       => 'general',
-				'title'    => esc_html__( 'General Settings', 'testimonials' ),
+				'title'    => esc_html__( 'General Settings', 'toot' ),
 				'callback' => array( $this, 'help_tab_general' )
 			)
 		);
@@ -290,13 +290,13 @@ final class JTEST_Settings_Page {
 		$screen->add_help_tab(
 			array(
 				'id'       => 'permalinks',
-				'title'    => esc_html__( 'Permalinks', 'testimonials' ),
+				'title'    => esc_html__( 'Permalinks', 'toot' ),
 				'callback' => array( $this, 'help_tab_permalinks' )
 			)
 		);
 
 		// Set the help sidebar.
-		$screen->set_help_sidebar( jtest_get_help_sidebar_text() );
+		$screen->set_help_sidebar( toot_get_help_sidebar_text() );
 	}
 
 	/**
@@ -309,8 +309,8 @@ final class JTEST_Settings_Page {
 	public function help_tab_general() { ?>
 
 		<ul>
-			<li><?php _e( '<strong>Title:</strong> Allows you to set the title for the portfolio section on your site. This is general shown on the portfolio testimonials archive, but themes and other plugins may use it in other ways.', 'testimonials' ); ?></li>
-			<li><?php _e( '<strong>Description:</strong> This is the description for your portfolio. Some themes may display this on the portfolio testimonials archive.', 'testimonials' ); ?></li>
+			<li><?php _e( '<strong>Title:</strong> Allows you to set the title for the portfolio section on your site. This is general shown on the portfolio testimonials archive, but themes and other plugins may use it in other ways.', 'toot' ); ?></li>
+			<li><?php _e( '<strong>Description:</strong> This is the description for your portfolio. Some themes may display this on the portfolio testimonials archive.', 'toot' ); ?></li>
 		</ul>
 	<?php }
 
@@ -324,14 +324,14 @@ final class JTEST_Settings_Page {
 	public function help_tab_permalinks() { ?>
 
 		<ul>
-			<li><?php _e( '<strong>Rewrite Base:</strong> The primary URL for the testimonials section on your site. It lists your testimonials.', 'testimonials' ); ?></li>
+			<li><?php _e( '<strong>Rewrite Base:</strong> The primary URL for the testimonials section on your site. It lists your testimonials.', 'toot' ); ?></li>
 			<li>
-				<?php _e( '<strong>Testimonial Slug:</strong> The slug for single testimonials. You can use something custom, leave this field empty, or use one of the following tags:', 'testimonials' ); ?>
+				<?php _e( '<strong>Testimonial Slug:</strong> The slug for single testimonials. You can use something custom, leave this field empty, or use one of the following tags:', 'toot' ); ?>
 				<ul>
-					<li><?php printf( esc_html__( '%s - The testimonial category.', 'testimonials' ), '<code>%' . jtest_get_category_taxonomy() . '%</code>' ); ?></li>
+					<li><?php printf( esc_html__( '%s - The testimonial category.', 'toot' ), '<code>%' . toot_get_category_taxonomy() . '%</code>' ); ?></li>
 				</ul>
 			</li>
-			<li><?php _e( '<strong>Category Slug:</strong> The base slug used for category archives.', 'testimonials' ); ?></li>
+			<li><?php _e( '<strong>Category Slug:</strong> The base slug used for category archives.', 'toot' ); ?></li>
 		</ul>
 	<?php }
 
@@ -353,4 +353,4 @@ final class JTEST_Settings_Page {
 	}
 }
 
-JTEST_Settings_Page::get_instance();
+Toot_Settings_Page::get_instance();

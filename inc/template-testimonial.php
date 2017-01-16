@@ -2,10 +2,10 @@
 /**
  * Template tags related to portfolio testimonials for theme authors to use in their theme templates.
  *
- * @package    Testimonails
+ * @package    Toot
  * @subpackage Includes
  * @author     Justin Tadlock <justintadlock@gmail.com>
- * @copyright  Copyright (c) 2013-2016, Justin Tadlock
+ * @copyright  Copyright (c) 2017, Justin Tadlock
  * @link       http://themehybrid.com/plugins/testimonials
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
@@ -19,7 +19,7 @@
  * @param  int     $post_id
  * @return int
  */
-function jtest_get_testimonial_id( $post_id = '' ) {
+function toot_get_testimonial_id( $post_id = '' ) {
 
 	return $post_id ? absint( $post_id ) : get_the_ID();
 }
@@ -32,14 +32,14 @@ function jtest_get_testimonial_id( $post_id = '' ) {
  * @param  mixed  $post
  * @return bool
  */
-function jtest_is_single_testimonial( $post = '' ) {
+function toot_is_single_testimonial( $post = '' ) {
 
-	$is_single = is_singular( jtest_get_testimonial_post_type() );
+	$is_single = is_singular( toot_get_testimonial_post_type() );
 
 	if ( $is_single && $post )
 		$is_single = is_single( $post );
 
-	return apply_filters( 'jtest_is_single_testimonial', $is_single, $post );
+	return apply_filters( 'toot_is_single_testimonial', $is_single, $post );
 }
 
 /**
@@ -49,9 +49,9 @@ function jtest_is_single_testimonial( $post = '' ) {
  * @access public
  * @return bool
  */
-function jtest_is_testimonial_archive() {
+function toot_is_testimonial_archive() {
 
-	return apply_filters( 'jtest_is_testimonial_archive', is_post_type_archive( jtest_get_testimonial_post_type() ) && ! jtest_is_author() );
+	return apply_filters( 'toot_is_testimonial_archive', is_post_type_archive( toot_get_testimonial_post_type() ) && ! toot_is_author() );
 }
 
 /**
@@ -62,11 +62,11 @@ function jtest_is_testimonial_archive() {
  * @param  int     $post_id
  * @return bool
  */
-function jtest_is_testimonial( $post_id = '' ) {
+function toot_is_testimonial( $post_id = '' ) {
 
-	$post_id = jtest_get_testimonial_id( $post_id );
+	$post_id = toot_get_testimonial_id( $post_id );
 
-	return apply_filters( 'jtest_is_testimonial', jtest_get_testimonial_post_type() === get_post_type( $post_id ), $post_id );
+	return apply_filters( 'toot_is_testimonial', toot_get_testimonial_post_type() === get_post_type( $post_id ), $post_id );
 }
 
 /**
@@ -77,10 +77,10 @@ function jtest_is_testimonial( $post_id = '' ) {
  * @param  int    $testimonial_id
  * @return bool
  */
-function jtest_is_testimonial_sticky( $testimonial_id = 0 ) {
-	$testimonial_id = jtest_get_testimonial_id( $testimonial_id );
+function toot_is_testimonial_sticky( $testimonial_id = 0 ) {
+	$testimonial_id = toot_get_testimonial_id( $testimonial_id );
 
-	return apply_filters( 'jtest_is_testimonial_sticky', in_array( $testimonial_id, jtest_get_sticky_testimonials() ), $testimonial_id );
+	return apply_filters( 'toot_is_testimonial_sticky', in_array( $testimonial_id, toot_get_sticky_testimonials() ), $testimonial_id );
 }
 
 /**
@@ -91,9 +91,9 @@ function jtest_is_testimonial_sticky( $testimonial_id = 0 ) {
  * @param  int     $post_id
  * @return void
  */
-function jtest_testimonial_url( $post_id = '' ) {
+function toot_testimonial_url( $post_id = '' ) {
 
-	$url = jtest_get_testimonial_url( $post_id );
+	$url = toot_get_testimonial_url( $post_id );
 
 	echo $url ? esc_url( $url ) : '';
 }
@@ -106,11 +106,11 @@ function jtest_testimonial_url( $post_id = '' ) {
  * @param  int    $post_id
  * @return string
  */
-function jtest_get_testimonial_url( $post_id = '' ) {
+function toot_get_testimonial_url( $post_id = '' ) {
 
-	$post_id = jtest_get_testimonial_id( $post_id );
+	$post_id = toot_get_testimonial_id( $post_id );
 
-	return apply_filters( 'jtest_get_testimonial_url', jtest_get_testimonial_meta( $post_id, 'url' ), $post_id );
+	return apply_filters( 'toot_get_testimonial_url', toot_get_testimonial_meta( $post_id, 'url' ), $post_id );
 }
 
 /**
@@ -121,8 +121,8 @@ function jtest_get_testimonial_url( $post_id = '' ) {
  * @param  array  $args
  * @return void
  */
-function jtest_testimonial_link( $args = array() ) {
-	echo jtest_get_testimonial_link( $args );
+function toot_testimonial_link( $args = array() ) {
+	echo toot_get_testimonial_link( $args );
 }
 
 /**
@@ -133,12 +133,12 @@ function jtest_testimonial_link( $args = array() ) {
  * @param  array  $args
  * @return string
  */
-function jtest_get_testimonial_link( $args = array() ) {
+function toot_get_testimonial_link( $args = array() ) {
 
 	$html = '';
 
 	$defaults = array(
-		'post_id' => jtest_get_testimonial_id(),
+		'post_id' => toot_get_testimonial_id(),
 		'text'    => '%s',
 		'before'  => '',
 		'after'   => '',
@@ -147,7 +147,7 @@ function jtest_get_testimonial_link( $args = array() ) {
 
 	$args = wp_parse_args( $args, $defaults );
 
-	$url = jtest_get_testimonial_meta( $args['post_id'], 'url' );
+	$url = toot_get_testimonial_meta( $args['post_id'], 'url' );
 
 	if ( $url ) {
 
@@ -159,7 +159,7 @@ function jtest_get_testimonial_link( $args = array() ) {
 		$html .= $args['after'];
 	}
 
-	return apply_filters( 'jtest_get_testimonial_link', $html, $args['post_id'] );
+	return apply_filters( 'toot_get_testimonial_link', $html, $args['post_id'] );
 }
 
 /**
@@ -170,8 +170,8 @@ function jtest_get_testimonial_link( $args = array() ) {
  * @param  array  $args
  * @return void
  */
-function jtest_testimonial_email( $args = array() ) {
-	echo jtest_get_testimonial_email( $args );
+function toot_testimonial_email( $args = array() ) {
+	echo toot_get_testimonial_email( $args );
 }
 
 /**
@@ -182,12 +182,12 @@ function jtest_testimonial_email( $args = array() ) {
  * @param  array  $args
  * @return string
  */
-function jtest_get_testimonial_email( $args = array() ) {
+function toot_get_testimonial_email( $args = array() ) {
 
 	$html = '';
 
 	$defaults = array(
-		'post_id' => jtest_get_testimonial_id(),
+		'post_id' => toot_get_testimonial_id(),
 		'text'    => '%s',
 		'before'  => '',
 		'after'   => '',
@@ -196,7 +196,7 @@ function jtest_get_testimonial_email( $args = array() ) {
 
 	$args = wp_parse_args( $args, $defaults );
 
-	$email = jtest_get_testimonial_meta( $args['post_id'], 'email' );
+	$email = toot_get_testimonial_meta( $args['post_id'], 'email' );
 
 	if ( $email ) {
 
@@ -207,5 +207,5 @@ function jtest_get_testimonial_email( $args = array() ) {
 		$html .= $args['after'];
 	}
 
-	return apply_filters( 'jtest_get_testimonial_email', $html, $args['post_id'] );
+	return apply_filters( 'toot_get_testimonial_email', $html, $args['post_id'] );
 }

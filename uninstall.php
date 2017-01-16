@@ -2,22 +2,22 @@
 /**
  * Plugin uninstall file.
  *
- * @package    Testimonails
+ * @package    Toot
  * @author     Justin Tadlock <justintadlock@gmail.com>
- * @copyright  Copyright (c) 2013-2016, Justin Tadlock
- * @link       http://themehybrid.com/plugins/custom-content-portfolio
+ * @copyright  Copyright (c) 2017, Justin Tadlock
+ * @link       http://themehybrid.com/plugins/toot
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 // Make sure we're actually uninstalling the plugin.
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) )
-	wp_die( sprintf( __( '%s should only be called when uninstalling the plugin.', 'testimonials' ), '<code>' . __FILE__ . '</code>' ) );
+	wp_die( sprintf( __( '%s should only be called when uninstalling the plugin.', 'toot' ), '<code>' . __FILE__ . '</code>' ) );
 
 /* === Delete plugin options. === */
 
 // Remove 1.0.0+ options.
-delete_option( 'jtest_settings'        );
-delete_option( 'jtest_sticky_testimonials' );
+delete_option( 'toot_settings'            );
+delete_option( 'toot_sticky_testimonials' );
 
 /* === Remove capabilities added by the plugin. === */
 

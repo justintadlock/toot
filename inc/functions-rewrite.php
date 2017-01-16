@@ -2,10 +2,10 @@
 /**
  * Plugin rewrite functions.
  *
- * @package    Testimonails
+ * @package    Toot
  * @subpackage Includes
  * @author     Justin Tadlock <justintadlock@gmail.com>
- * @copyright  Copyright (c) 2013-2016, Justin Tadlock
+ * @copyright  Copyright (c) 2017, Justin Tadlock
  * @link       http://themehybrid.com/plugins/testimonials
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
@@ -17,13 +17,13 @@
  * @access public
  * @return string
  */
-function jtest_get_testimonial_rewrite_slug() {
-	$rewrite_base     = jtest_get_rewrite_base();
-	$testimonial_base = jtest_get_testimonial_rewrite_base();
+function toot_get_testimonial_rewrite_slug() {
+	$rewrite_base     = toot_get_rewrite_base();
+	$testimonial_base = toot_get_testimonial_rewrite_base();
 
 	$slug = $testimonial_base ? trailingslashit( $rewrite_base ) . $testimonial_base : $rewrite_base;
 
-	return apply_filters( 'jtest_get_testimonial_rewrite_slug', $slug );
+	return apply_filters( 'toot_get_testimonial_rewrite_slug', $slug );
 }
 
 /**
@@ -33,11 +33,11 @@ function jtest_get_testimonial_rewrite_slug() {
  * @access public
  * @return string
  */
-function jtest_get_category_rewrite_slug() {
-	$rewrite_base  = jtest_get_rewrite_base();
-	$category_base = jtest_get_category_rewrite_base();
+function toot_get_category_rewrite_slug() {
+	$rewrite_base  = toot_get_rewrite_base();
+	$category_base = toot_get_category_rewrite_base();
 
 	$slug = $category_base ? trailingslashit( $rewrite_base ) . $category_base : $rewrite_base;
 
-	return apply_filters( 'jtest_get_category_rewrite_slug', $slug );
+	return apply_filters( 'toot_get_category_rewrite_slug', $slug );
 }

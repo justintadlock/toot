@@ -2,10 +2,10 @@
 /**
  * New/Edit testimonial admin screen.
  *
- * @package    Testimonails
+ * @package    Toot
  * @subpackage Admin
  * @author     Justin Tadlock <justintadlock@gmail.com>
- * @copyright  Copyright (c) 2013-2016, Justin Tadlock
+ * @copyright  Copyright (c) 2017, Justin Tadlock
  * @link       http://themehybrid.com/plugins/testimonials
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
@@ -16,7 +16,7 @@
  * @since  1.0.0
  * @access public
  */
-final class JTEST_Testimonial_Edit {
+final class Toot_Testimonial_Edit {
 
 	/**
 	 * Sets up the needed actions.
@@ -31,7 +31,7 @@ final class JTEST_Testimonial_Edit {
 		add_action( 'load-post-new.php', array( $this, 'load' ) );
 
 		// Add the help tabs.
-		add_action( 'jtest_load_testimonial_edit', array( $this, 'add_help_tabs' ) );
+		add_action( 'toot_load_testimonial_edit', array( $this, 'add_help_tabs' ) );
 	}
 
 	/**
@@ -45,14 +45,14 @@ final class JTEST_Testimonial_Edit {
 	public function load() {
 
 		$screen       = get_current_screen();
-		$testimonial_type = jtest_get_testimonial_post_type();
+		$testimonial_type = toot_get_testimonial_post_type();
 
 		// Bail if not on the testimonials screen.
 		if ( empty( $screen->post_type ) || $testimonial_type !== $screen->post_type )
 			return;
 
 		// Custom action for loading the edit testimonial screen.
-		do_action( 'jtest_load_testimonial_edit' );
+		do_action( 'toot_load_testimonial_edit' );
 
 		// Enqueue scripts and styles.
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
@@ -79,7 +79,7 @@ final class JTEST_Testimonial_Edit {
 	 */
 	public function enqueue() {
 
-		wp_enqueue_script( 'jtest-edit-testimonial' );
+		wp_enqueue_script( 'toot-edit-testimonial' );
 	}
 
 	/**
@@ -121,33 +121,33 @@ final class JTEST_Testimonial_Edit {
 		}
 
 		// Get the post type object.
-		$post_type_object = get_post_type_object( jtest_get_testimonial_post_type() );
+		$post_type_object = get_post_type_object( toot_get_testimonial_post_type() );
 
 		// Is the testimonial sticky?
-		$is_sticky = jtest_is_testimonial_sticky( $post->ID );
+		$is_sticky = toot_is_testimonial_sticky( $post->ID );
 
 		// Set the label based on whether the testimonial is sticky.
-		$label = $is_sticky ? esc_html__( 'Sticky', 'testimonials' ) : esc_html__( 'Not Sticky', 'testimonials' ); ?>
+		$label = $is_sticky ? esc_html__( 'Sticky', 'toot' ) : esc_html__( 'Not Sticky', 'toot' ); ?>
 
 		<div class="misc-pub-section curtime misc-pub-testimonial-sticky">
 
-			<?php wp_nonce_field( 'jtest_testimonial_publish_box_nonce', 'jtest_testimonial_publish_box' ); ?>
+			<?php wp_nonce_field( 'toot_testimonial_publish_box_nonce', 'toot_testimonial_publish_box' ); ?>
 
 			<i class="dashicons dashicons-sticky"></i>
-			<?php printf( esc_html__( 'Sticky: %s', 'testimonials' ), "<strong class='jtest-sticky-status'>{$label}</strong>" ); ?>
+			<?php printf( esc_html__( 'Sticky: %s', 'toot' ), "<strong class='toot-sticky-status'>{$label}</strong>" ); ?>
 
 			<?php if ( current_user_can( $post_type_object->cap->publish_posts ) ) : ?>
 
-				<a href="#jtest-sticky-edit" class="jtest-edit-sticky"><span aria-hidden="true"><?php esc_html_e( 'Edit', 'testimonials' ); ?></span> <span class="screen-reader-text"><?php esc_html_e( 'Edit sticky status', 'testimonials' ); ?></span></a>
+				<a href="#toot-sticky-edit" class="toot-edit-sticky"><span aria-hidden="true"><?php esc_html_e( 'Edit', 'toot' ); ?></span> <span class="screen-reader-text"><?php esc_html_e( 'Edit sticky status', 'toot' ); ?></span></a>
 
-				<div id="jtest-sticky-edit" class="hide-if-js">
+				<div id="toot-sticky-edit" class="hide-if-js">
 					<label>
-						<input type="checkbox" name="jtest_testimonial_sticky" id="jtest-testimonial-sticky" <?php checked( $is_sticky ); ?> value="true" />
-						<?php esc_html_e( 'Stick to the portfolio page', 'testimonials' ); ?>
+						<input type="checkbox" name="toot_testimonial_sticky" id="toot-testimonial-sticky" <?php checked( $is_sticky ); ?> value="true" />
+						<?php esc_html_e( 'Stick to the portfolio page', 'toot' ); ?>
 					</label>
-					<a href="#jtest-testimonial-sticky" class="jtest-save-sticky hide-if-no-js button"><?php esc_html_e( 'OK', 'custom-content-portolio' ); ?></a>
-					<a href="#jtest-testimonial-sticky" class="jtest-cancel-sticky hide-if-no-js button-cancel"><?php esc_html_e( 'Cancel', 'custom-content-portolio' ); ?></a>
-				</div><!-- #jtest-sticky-edit -->
+					<a href="#toot-testimonial-sticky" class="toot-save-sticky hide-if-no-js button"><?php esc_html_e( 'OK', 'custom-content-portolio' ); ?></a>
+					<a href="#toot-testimonial-sticky" class="toot-cancel-sticky hide-if-no-js button-cancel"><?php esc_html_e( 'Cancel', 'custom-content-portolio' ); ?></a>
+				</div><!-- #toot-sticky-edit -->
 
 			<?php endif; ?>
 
@@ -176,19 +176,19 @@ final class JTEST_Testimonial_Edit {
 	public function update( $post_id ) {
 
 		// Verify the nonce.
-		if ( ! isset( $_POST['jtest_testimonial_publish_box'] ) || ! wp_verify_nonce( $_POST['jtest_testimonial_publish_box'], 'jtest_testimonial_publish_box_nonce' ) )
+		if ( ! isset( $_POST['toot_testimonial_publish_box'] ) || ! wp_verify_nonce( $_POST['toot_testimonial_publish_box'], 'toot_testimonial_publish_box_nonce' ) )
 			return;
 
 		// Is the sticky checkbox checked?
-		$should_stick = ! empty( $_POST['jtest_testimonial_sticky'] );
+		$should_stick = ! empty( $_POST['toot_testimonial_sticky'] );
 
 		// If checked, add the testimonial if it is not sticky.
-		if ( $should_stick && ! jtest_is_testimonial_sticky( $post_id ) )
-			jtest_add_sticky_testimonial( $post_id );
+		if ( $should_stick && ! toot_is_testimonial_sticky( $post_id ) )
+			toot_add_sticky_testimonial( $post_id );
 
 		// If not checked, remove the testimonial if it is sticky.
-		elseif ( ! $should_stick && jtest_is_testimonial_sticky( $post_id ) )
-			jtest_remove_sticky_testimonial( $post_id );
+		elseif ( ! $should_stick && toot_is_testimonial_sticky( $post_id ) )
+			toot_remove_sticky_testimonial( $post_id );
 	}
 
 	/**
@@ -207,7 +207,7 @@ final class JTEST_Testimonial_Edit {
 		global $wp_roles, $post;
 
 		// Check that this is the correct drop-down.
-		if ( 'post_author_override' === $r['name'] && jtest_get_testimonial_post_type() === $post->post_type ) {
+		if ( 'post_author_override' === $r['name'] && toot_get_testimonial_post_type() === $post->post_type ) {
 
 			$roles = array();
 
@@ -215,7 +215,7 @@ final class JTEST_Testimonial_Edit {
 			foreach ( $wp_roles->roles as $name => $role ) {
 
 				// Get the edit posts cap.
-				$cap = get_post_type_object( jtest_get_testimonial_post_type() )->cap->edit_posts;
+				$cap = get_post_type_object( toot_get_testimonial_post_type() )->cap->edit_posts;
 
 				// If the role is granted the edit posts cap, add it.
 				if ( isset( $role['capabilities'][ $cap ] ) && true === $role['capabilities'][ $cap ] )
@@ -247,7 +247,7 @@ final class JTEST_Testimonial_Edit {
 		$screen->add_help_tab(
 			array(
 				'id'       => 'title_editor',
-				'title'    => esc_html__( 'Title and Editor', 'testimonials' ),
+				'title'    => esc_html__( 'Title and Editor', 'toot' ),
 				'callback' => array( $this, 'help_tab_title_editor' )
 			)
 		);
@@ -256,13 +256,13 @@ final class JTEST_Testimonial_Edit {
 		$screen->add_help_tab(
 			array(
 				'id'       => 'testimonial_details',
-				'title'    => esc_html__( 'Testimonial Details', 'testimonials' ),
+				'title'    => esc_html__( 'Testimonial Details', 'toot' ),
 				'callback' => array( $this, 'help_tab_testimonial_details' )
 			)
 		);
 
 		// Set the help sidebar.
-		$screen->set_help_sidebar( jtest_get_help_sidebar_text() );
+		$screen->set_help_sidebar( toot_get_help_sidebar_text() );
 	}
 
 	/**
@@ -275,8 +275,8 @@ final class JTEST_Testimonial_Edit {
 	public function help_tab_title_editor() { ?>
 
 		<ul>
-			<li><?php _e( "<strong>Title:</strong> Enter a title for your testimonial. After you enter a title, you'll see the permalink below, which you can edit.", 'testimonials' ); ?></li>
-			<li><?php _e( '<strong>Editor:</strong> The editor allows you to add or edit content for your testimonial. You can insert text, media, or shortcodes.', 'testimonials' ); ?></li>
+			<li><?php _e( "<strong>Title:</strong> Enter a title for your testimonial. After you enter a title, you'll see the permalink below, which you can edit.", 'toot' ); ?></li>
+			<li><?php _e( '<strong>Editor:</strong> The editor allows you to add or edit content for your testimonial. You can insert text, media, or shortcodes.', 'toot' ); ?></li>
 		</ul>
 	<?php }
 
@@ -290,12 +290,12 @@ final class JTEST_Testimonial_Edit {
 	public function help_tab_testimonial_details() { ?>
 
 		<p>
-			<?php esc_html_e( 'The Testimonial Details meta box allows you to customize the details of your testimonial. All fields are optional.', 'testimonials' ); ?>
+			<?php esc_html_e( 'The Testimonial Details meta box allows you to customize the details of your testimonial. All fields are optional.', 'toot' ); ?>
 		</p>
 
 		<ul>
-			<li><?php _e( '<strong>URL:</strong> The URL to the Web site or page associated with the testimonial, such as a client Web site.', 'testimonials' ); ?></li>
-			<li><?php _e( '<strong>Email:</strong> Todo - description', 'testimonials' ); ?></li>
+			<li><?php _e( '<strong>URL:</strong> The URL to the Web site or page associated with the testimonial, such as a client Web site.', 'toot' ); ?></li>
+			<li><?php _e( '<strong>Email:</strong> Todo - description', 'toot' ); ?></li>
 		</ul>
 	<?php }
 
@@ -317,4 +317,4 @@ final class JTEST_Testimonial_Edit {
 	}
 }
 
-JTEST_Testimonial_Edit::get_instance();
+Toot_Testimonial_Edit::get_instance();

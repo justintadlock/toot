@@ -2,10 +2,10 @@
 /**
  * Manage testimonials admin screen.
  *
- * @package    Testimonails
+ * @package    Toot
  * @subpackage Admin
  * @author     Justin Tadlock <justintadlock@gmail.com>
- * @copyright  Copyright (c) 2013-2016, Justin Tadlock
+ * @copyright  Copyright (c) 2017, Justin Tadlock
  * @link       http://themehybrid.com/plugins/testimonials
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
@@ -16,7 +16,7 @@
  * @since  1.0.0
  * @access public
  */
-final class JTEST_Manage_Testimonials {
+final class Toot_Manage_Testimonials {
 
 	/**
 	 * Sets up the needed actions.
@@ -30,10 +30,10 @@ final class JTEST_Manage_Testimonials {
 		add_action( 'load-edit.php', array( $this, 'load' ) );
 
 		// Hook the handler to the manage testimonials load screen.
-		add_action( 'jtest_load_manage_testimonials', array( $this, 'handler' ), 0 );
+		add_action( 'toot_load_manage_testimonials', array( $this, 'handler' ), 0 );
 
 		// Add the help tabs.
-		add_action( 'jtest_load_manage_testimonials', array( $this, 'add_help_tabs' ) );
+		add_action( 'toot_load_manage_testimonials', array( $this, 'add_help_tabs' ) );
 	}
 
 	/**
@@ -47,14 +47,14 @@ final class JTEST_Manage_Testimonials {
 	public function load() {
 
 		$screen       = get_current_screen();
-		$testimonial_type = jtest_get_testimonial_post_type();
+		$testimonial_type = toot_get_testimonial_post_type();
 
 		// Bail if not on the testimonials screen.
 		if ( empty( $screen->post_type ) || $testimonial_type !== $screen->post_type )
 			return;
 
 		// Custom action for loading the manage testimonials screen.
-		do_action( 'jtest_load_manage_testimonials' );
+		do_action( 'toot_load_manage_testimonials' );
 
 		// Filter the `request` vars.
 		add_filter( 'request', array( $this, 'request' ) );
@@ -93,7 +93,7 @@ final class JTEST_Manage_Testimonials {
 
 		// If viewing sticky testimonials.
 		if ( isset( $_GET['sticky'] ) && 1 == $_GET['sticky'] )
-			$new_vars['post__in'] = jtest_get_sticky_testimonials();
+			$new_vars['post__in'] = toot_get_sticky_testimonials();
 
 		// Return the vars, merging with the new ones.
 		return array_merge( $vars, $new_vars );
@@ -109,7 +109,7 @@ final class JTEST_Manage_Testimonials {
 	public function print_styles() { ?>
 
 		<style type="text/css">@media only screen and (min-width: 783px) {
-			.fixed .column-taxonomy-<?php echo esc_attr( jtest_get_category_taxonomy() ); ?> { width: 15%; }
+			.fixed .column-taxonomy-<?php echo esc_attr( toot_get_category_taxonomy() ); ?> { width: 15%; }
 		}</style>
 	<?php }
 
@@ -123,12 +123,12 @@ final class JTEST_Manage_Testimonials {
 	 */
 	public function views( $views ) {
 
-		$count = count( jtest_get_sticky_testimonials() );
+		$count = count( toot_get_sticky_testimonials() );
 
 		if ( 0 < $count ) {
-			$post_type = jtest_get_testimonial_post_type();
+			$post_type = toot_get_testimonial_post_type();
 
-			$noop = _n( 'Sticky <span class="count">(%s)</span>', 'Sticky <span class="count">(%s)</span>', $count, 'testimonials' );
+			$noop = _n( 'Sticky <span class="count">(%s)</span>', 'Sticky <span class="count">(%s)</span>', $count, 'toot' );
 			$text = sprintf( $noop, number_format_i18n( $count ) );
 
 			$views['sticky'] = sprintf( '<a href="%s">%s</a>', add_query_arg( array( 'post_type' => $post_type, 'sticky' => 1 ), admin_url( 'edit.php' ) ), $text );
@@ -146,7 +146,7 @@ final class JTEST_Manage_Testimonials {
 	 */
 	public function categories_dropdown() {
 
-		$this->terms_dropdown( jtest_get_category_taxonomy() );
+		$this->terms_dropdown( toot_get_category_taxonomy() );
 	}
 
 	/**
@@ -190,12 +190,12 @@ final class JTEST_Manage_Testimonials {
 
 		$new_columns = array(
 			'cb'    => $columns['cb'],
-			'title' => __( 'Author', 'testimonials' )
+			'title' => __( 'Author', 'toot' )
 		);
 
 		// @todo - Author image/avatar.
 	//	if ( current_theme_supports( 'post-thumbnails' ) )
-	//		$new_columns['thumbnail'] = __( 'Thumbnail', 'testimonials' );
+	//		$new_columns['thumbnail'] = __( 'Thumbnail', 'toot' );
 
 		$columns = array_merge( $new_columns, $columns );
 
@@ -235,8 +235,8 @@ final class JTEST_Manage_Testimonials {
 	 */
 	public function display_post_states( $states, $post ) {
 
-		if ( jtest_is_testimonial_sticky( $post->ID ) )
-			$states['sticky'] = esc_html__( 'Sticky', 'testimonials' );
+		if ( toot_is_testimonial_sticky( $post->ID ) )
+			$states['sticky'] = esc_html__( 'Sticky', 'toot' );
 
 		return $states;
 	}
@@ -252,20 +252,20 @@ final class JTEST_Manage_Testimonials {
 	 */
 	function row_actions( $actions, $post ) {
 
-		$post_type_object = get_post_type_object( jtest_get_testimonial_post_type() );
-		$testimonial_id = jtest_get_testimonial_id( $post->ID );
+		$post_type_object = get_post_type_object( toot_get_testimonial_post_type() );
+		$testimonial_id = toot_get_testimonial_id( $post->ID );
 
 		if ( 'trash' === get_post_status( $testimonial_id ) || ! current_user_can( $post_type_object->cap->publish_posts ) )
 			return $actions;
 
-		$current_url = remove_query_arg( array( 'testimonial_id', 'jtest_testimonial_notice' ) );
+		$current_url = remove_query_arg( array( 'testimonial_id', 'toot_testimonial_notice' ) );
 
 		// Build text.
-		$text = jtest_is_testimonial_sticky( $testimonial_id ) ? esc_html__( 'Unstick', 'testimonials' ) : esc_html__( 'Stick', 'testimonials' );
+		$text = toot_is_testimonial_sticky( $testimonial_id ) ? esc_html__( 'Unstick', 'toot' ) : esc_html__( 'Stick', 'toot' );
 
 		// Build toggle URL.
-		$url = add_query_arg( array( 'testimonial_id' => $testimonial_id, 'action' => 'jtest_toggle_sticky' ), $current_url );
-		$url = wp_nonce_url( $url, "jtest_toggle_sticky_{$testimonial_id}" );
+		$url = add_query_arg( array( 'testimonial_id' => $testimonial_id, 'action' => 'toot_toggle_sticky' ), $current_url );
+		$url = wp_nonce_url( $url, "toot_toggle_sticky_{$testimonial_id}" );
 
 		// Add sticky action.
 		$actions['sticky'] = sprintf( '<a href="%s" class="%s">%s</a>', esc_url( $url ), 'sticky', esc_html( $text ) );
@@ -291,17 +291,17 @@ final class JTEST_Manage_Testimonials {
 	public function handler() {
 
 		// Checks if the sticky toggle link was clicked.
-		if ( isset( $_GET['action'] ) && 'jtest_toggle_sticky' === $_GET['action'] && isset( $_GET['testimonial_id'] ) ) {
+		if ( isset( $_GET['action'] ) && 'toot_toggle_sticky' === $_GET['action'] && isset( $_GET['testimonial_id'] ) ) {
 
-			$testimonial_id = absint( jtest_get_testimonial_id( $_GET['testimonial_id'] ) );
+			$testimonial_id = absint( toot_get_testimonial_id( $_GET['testimonial_id'] ) );
 
 			// Verify the nonce.
-			check_admin_referer( "jtest_toggle_sticky_{$testimonial_id}" );
+			check_admin_referer( "toot_toggle_sticky_{$testimonial_id}" );
 
-			if ( jtest_is_testimonial_sticky( $testimonial_id ) )
-				jtest_remove_sticky_testimonial( $testimonial_id );
+			if ( toot_is_testimonial_sticky( $testimonial_id ) )
+				toot_remove_sticky_testimonial( $testimonial_id );
 			else
-				jtest_add_sticky_testimonial( $testimonial_id );
+				toot_add_sticky_testimonial( $testimonial_id );
 
 			// Redirect to correct admin page.
 			$redirect = add_query_arg( array( 'updated' => 1 ), remove_query_arg( array( 'action', 'testimonial_id', '_wpnonce' ) ) );
@@ -329,7 +329,7 @@ final class JTEST_Manage_Testimonials {
 		$screen->add_help_tab(
 			array(
 				'id'       => 'overview',
-				'title'    => esc_html__( 'Overview', 'testimonials' ),
+				'title'    => esc_html__( 'Overview', 'toot' ),
 				'callback' => array( $this, 'help_tab_overview' )
 			)
 		);
@@ -338,7 +338,7 @@ final class JTEST_Manage_Testimonials {
 		$screen->add_help_tab(
 			array(
 				'id'       => 'screen_content',
-				'title'    => esc_html__( 'Screen Content', 'testimonials' ),
+				'title'    => esc_html__( 'Screen Content', 'toot' ),
 				'callback' => array( $this, 'help_tab_screen_content' )
 			)
 		);
@@ -347,13 +347,13 @@ final class JTEST_Manage_Testimonials {
 		$screen->add_help_tab(
 			array(
 				'id'       => 'available_actions',
-				'title'    => esc_html__( 'Available Actions', 'testimonials' ),
+				'title'    => esc_html__( 'Available Actions', 'toot' ),
 				'callback' => array( $this, 'help_tab_available_actions' )
 			)
 		);
 
 		// Set the help sidebar.
-		$screen->set_help_sidebar( jtest_get_help_sidebar_text() );
+		$screen->set_help_sidebar( toot_get_help_sidebar_text() );
 	}
 
 	/**
@@ -366,7 +366,7 @@ final class JTEST_Manage_Testimonials {
 	public function help_tab_overview() { ?>
 
 		<p>
-			<?php esc_html_e( 'This screen provides access to all of your testimonials. You can customize the display of this screen to suit your workflow.', 'testimonials' ); ?>
+			<?php esc_html_e( 'This screen provides access to all of your testimonials. You can customize the display of this screen to suit your workflow.', 'toot' ); ?>
 		</p>
 	<?php }
 
@@ -380,14 +380,14 @@ final class JTEST_Manage_Testimonials {
 	public function help_tab_screen_content() { ?>
 
 		<p>
-			<?php esc_html_e( "You can customize the display of this screen's contents in a number of ways:", 'testimonials' ); ?>
+			<?php esc_html_e( "You can customize the display of this screen's contents in a number of ways:", 'toot' ); ?>
 		</p>
 
 		<ul>
-			<li><?php esc_html_e( 'You can hide/display columns based on your needs and decide how many testimonials to list per screen using the Screen Options tab.', 'testimonials' ); ?></li>
-			<li><?php esc_html_e( 'You can filter the list of testimonials by post status using the text links in the upper left to show All, Published, Draft, or Trashed testimonials. The default view is to show all testimonials.', 'testimonials' ); ?></li>
-			<li><?php esc_html_e( 'You can view testimonials in a simple title list or with an excerpt. Choose the view you prefer by clicking on the icons at the top of the list on the right.', 'testimonials' ); ?></li>
-			<li><?php esc_html_e( 'You can refine the list to show only testimonials in a specific category, with a specific tag, or from a specific month by using the dropdown menus above the testimonials list. Click the Filter button after making your selection. You also can refine the list by clicking on the testimonial author, category or tag in the posts list.', 'testimonials' ); ?></li>
+			<li><?php esc_html_e( 'You can hide/display columns based on your needs and decide how many testimonials to list per screen using the Screen Options tab.', 'toot' ); ?></li>
+			<li><?php esc_html_e( 'You can filter the list of testimonials by post status using the text links in the upper left to show All, Published, Draft, or Trashed testimonials. The default view is to show all testimonials.', 'toot' ); ?></li>
+			<li><?php esc_html_e( 'You can view testimonials in a simple title list or with an excerpt. Choose the view you prefer by clicking on the icons at the top of the list on the right.', 'toot' ); ?></li>
+			<li><?php esc_html_e( 'You can refine the list to show only testimonials in a specific category, with a specific tag, or from a specific month by using the dropdown menus above the testimonials list. Click the Filter button after making your selection. You also can refine the list by clicking on the testimonial author, category or tag in the posts list.', 'toot' ); ?></li>
 		</ul>
 	<?php }
 
@@ -401,14 +401,14 @@ final class JTEST_Manage_Testimonials {
 	public function help_tab_available_actions() { ?>
 
 		<p>
-			<?php esc_html_e( 'Hovering over a row in the testimonials list will display action links that allow you to manage your testimonial. You can perform the following actions:', 'testimonials' ); ?>
+			<?php esc_html_e( 'Hovering over a row in the testimonials list will display action links that allow you to manage your testimonial. You can perform the following actions:', 'toot' ); ?>
 		</p>
 
 		<ul>
-			<li><?php _e( '<strong>Edit</strong> takes you to the editing screen for that testimonial. You can also reach that screen by clicking on the testimonial title.', 'testimonials' ); ?></li>
-			<li><?php _e( '<strong>Quick Edit</strong> provides inline access to the metadata of your testimonial, allowing you to update testimonial details without leaving this screen.', 'testimonials' ); ?></li>
-			<li><?php _e( '<strong>Trash</strong> removes your testimonial from this list and places it in the trash, from which you can permanently delete it.', 'testimonials' ); ?></li>
-			<li><?php _e( "<strong>Preview</strong> will show you what your draft testimonial will look like if you publish it. View will take you to your live site to view the testimonial. Which link is available depends on your testimonial's status.", 'testimonials' ); ?></li>
+			<li><?php _e( '<strong>Edit</strong> takes you to the editing screen for that testimonial. You can also reach that screen by clicking on the testimonial title.', 'toot' ); ?></li>
+			<li><?php _e( '<strong>Quick Edit</strong> provides inline access to the metadata of your testimonial, allowing you to update testimonial details without leaving this screen.', 'toot' ); ?></li>
+			<li><?php _e( '<strong>Trash</strong> removes your testimonial from this list and places it in the trash, from which you can permanently delete it.', 'toot' ); ?></li>
+			<li><?php _e( "<strong>Preview</strong> will show you what your draft testimonial will look like if you publish it. View will take you to your live site to view the testimonial. Which link is available depends on your testimonial's status.", 'toot' ); ?></li>
 		</ul>
 	<?php }
 
@@ -430,4 +430,4 @@ final class JTEST_Manage_Testimonials {
 	}
 }
 
-JTEST_Manage_Testimonials::get_instance();
+Toot_Manage_Testimonials::get_instance();
