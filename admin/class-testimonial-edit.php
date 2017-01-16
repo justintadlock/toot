@@ -143,7 +143,7 @@ final class Toot_Testimonial_Edit {
 				<div id="toot-sticky-edit" class="hide-if-js">
 					<label>
 						<input type="checkbox" name="toot_testimonial_sticky" id="toot-testimonial-sticky" <?php checked( $is_sticky ); ?> value="true" />
-						<?php esc_html_e( 'Stick to the portfolio page', 'toot' ); ?>
+						<?php esc_html_e( 'Stick to the testimonials archive', 'toot' ); ?>
 					</label>
 					<a href="#toot-testimonial-sticky" class="toot-save-sticky hide-if-no-js button"><?php esc_html_e( 'OK', 'custom-content-portolio' ); ?></a>
 					<a href="#toot-testimonial-sticky" class="toot-cancel-sticky hide-if-no-js button-cancel"><?php esc_html_e( 'Cancel', 'custom-content-portolio' ); ?></a>
