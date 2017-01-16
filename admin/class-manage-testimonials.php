@@ -201,6 +201,12 @@ final class Toot_Manage_Testimonials {
 
 		$columns['title'] = $new_columns['title'];
 
+		// Fix the categories label.
+		$category_taxonomy = get_taxonomy( toot_get_category_taxonomy() );
+
+		if ( isset( $columns[ "taxonomy-{$category_taxonomy->name}" ] ) )
+			$columns[ "taxonomy-{$category_taxonomy->name}" ] = $category_taxonomy->labels->posts_column_name;
+
 		return $columns;
 	}
 

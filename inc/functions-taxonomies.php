@@ -78,6 +78,9 @@ function toot_get_category_labels() {
 		'select_name'                => __( 'Select Category',                      'toot' ),
 		'parent_item'                => __( 'Parent Category',                      'toot' ),
 		'parent_item_colon'          => __( 'Parent Category:',                     'toot' ),
+
+		// Custom.
+		'posts_column_name'          => __( 'Categories',                           'toot' )
 	);
 
 	return apply_filters( 'toot_get_category_labels', $labels );

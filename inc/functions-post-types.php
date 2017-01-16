@@ -84,7 +84,7 @@ function toot_get_testimonial_labels() {
 		'singular_name'         => __( 'Testimonial',                    'toot' ),
 		'menu_name'             => __( 'Testimonials',                   'toot' ),
 		'name_admin_bar'        => __( 'Testimonial',                    'toot' ),
-		'add_new'               => __( 'New Testimonial',                'toot' ),
+		'add_new'               => __( 'Add New',                        'toot' ),
 		'add_new_item'          => __( 'Add New Testimonial',            'toot' ),
 		'edit_item'             => __( 'Edit Testimonial',               'toot' ),
 		'new_item'              => __( 'New Testimonial',                'toot' ),
