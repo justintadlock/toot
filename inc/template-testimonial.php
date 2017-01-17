@@ -51,7 +51,7 @@ function toot_is_single_testimonial( $post = '' ) {
  */
 function toot_is_testimonial_archive() {
 
-	return apply_filters( 'toot_is_testimonial_archive', is_post_type_archive( toot_get_testimonial_post_type() ) && ! toot_is_author() );
+	return apply_filters( 'toot_is_testimonial_archive', is_post_type_archive( toot_get_testimonial_post_type() ) );
 }
 
 /**
