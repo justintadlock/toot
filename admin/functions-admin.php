@@ -117,7 +117,7 @@ function toot_get_settings_page_slug() {
 function toot_get_help_sidebar_text() {
 
 	// Get docs and help links.
-	$docs_link = sprintf( '<li><a href="http://themehybrid.com/docs">%s</a></li>', esc_html__( 'Documentation', 'custom-cotent-portfolio' ) );
+	$docs_link = sprintf( '<li><a href="http://themehybrid.com/docs">%s</a></li>', esc_html__( 'Documentation', 'toot' ) );
 	$help_link = sprintf( '<li><a href="http://themehybrid.com/board/topics">%s</a></li>', esc_html__( 'Support Forums', 'toot' ) );
 
 	// Return the text.

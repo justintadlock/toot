@@ -120,7 +120,7 @@ function toot_get_testimonial_labels() {
  */
 function toot_register_post_types() {
 
-	// Set up the arguments for the portfolio testimonial post type.
+	// Set up the arguments for the testimonial post type.
 	$testimonial_args = array(
 		'description'         => toot_get_archive_description(),
 		'public'              => true,

@@ -11,7 +11,7 @@
  */
 
 /**
- * Returns the portfolio title.
+ * Returns the archive title.
  *
  * @since  1.0.0
  * @access public
@@ -22,7 +22,7 @@ function toot_get_archive_title() {
 }
 
 /**
- * Returns the portfolio description.
+ * Returns the archive description.
  *
  * @since  1.0.0
  * @access public

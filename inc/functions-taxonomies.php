@@ -17,7 +17,7 @@ add_action( 'init', 'toot_register_taxonomies', 9 );
 add_filter( 'term_updated_messages', 'toot_term_updated_messages', 5 );
 
 /**
- * Returns the name of the portfolio category taxonomy.
+ * Returns the name of the testimonial category taxonomy.
  *
  * @since  1.0.0
  * @access public
@@ -29,7 +29,7 @@ function toot_get_category_taxonomy() {
 }
 
 /**
- * Returns the capabilities for the portfolio category taxonomy.
+ * Returns the capabilities for the testimonial category taxonomy.
  *
  * @since  1.0.0
  * @access public
@@ -48,7 +48,7 @@ function toot_get_category_capabilities() {
 }
 
 /**
- * Returns the labels for the portfolio category taxonomy.
+ * Returns the labels for the testimonial category taxonomy.
  *
  * @since  1.0.0
  * @access public
@@ -95,7 +95,7 @@ function toot_get_category_labels() {
  */
 function toot_register_taxonomies() {
 
-	// Set up the arguments for the portfolio category taxonomy.
+	// Set up the arguments for the testimonial category taxonomy.
 	$cat_args = array(
 		'public'            => true,
 		'show_ui'           => true,
@@ -132,7 +132,7 @@ function toot_term_updated_messages( $messages ) {
 
 	$cat_taxonomy = toot_get_category_taxonomy();
 
-	// Add the portfolio category messages.
+	// Add the testimonial category messages.
 	$messages[ $cat_taxonomy ] = array(
 		0 => '',
 		1 => __( 'Category added.',       'toot' ),

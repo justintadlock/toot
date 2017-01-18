@@ -11,7 +11,7 @@
  */
 
 /**
- * Conditional tag to check if viewing any portfolio page.
+ * Conditional tag to check if viewing any plugin page.
  *
  * @since  1.0.0
  * @access public
@@ -20,11 +20,11 @@
  */
 function toot_is_testimonial_page() {
 
-	return apply_filters( 'toot_is_portfolio', toot_is_archive() || toot_is_single_testimonial() );
+	return apply_filters( 'toot_is_testimonial_page', toot_is_archive() || toot_is_single_testimonial() );
 }
 
 /**
- * Conditional tag to check if viewing any type of portfolio archive page.
+ * Conditional tag to check if viewing any type of Toot archive page.
  *
  * @since  2.0.0
  * @access public
@@ -38,7 +38,7 @@ function toot_is_archive() {
 }
 
 /**
- * Conditional tag to check if viewing a portfolio category archive.
+ * Conditional tag to check if viewing a testimonial category archive.
  *
  * @since  1.0.0
  * @access public

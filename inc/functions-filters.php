@@ -60,7 +60,7 @@ function toot_check_theme_support() {
  */
 function toot_template_include( $template ) {
 
-	// Bail if not a portfolio page.
+	// Bail if not a toot plugin page.
 	if ( ! toot_is_testimonial_page() )
 		return $template;
 
@@ -245,16 +245,16 @@ function toot_get_the_archive_title( $title ) {
 function toot_get_the_archive_description( $desc ) {
 
 	if ( toot_is_testimonial_archive() && ! $desc )
-		$desc = toot_get_portfolio_description();
+		$desc = toot_get_archive_description();
 
 	return $desc;
 }
 
 /**
- * Filter on `post_type_link` to make sure that single portfolio testimonials have the correct
+ * Filter on `post_type_link` to make sure that single testimonials have the correct
  * permalink.
  *
- * @since  0.1.0
+ * @since  1.0.0
  * @access public
  * @param  string  $post_link
  * @param  object  $post
@@ -262,7 +262,7 @@ function toot_get_the_archive_description( $desc ) {
  */
 function toot_post_type_link( $post_link, $post ) {
 
-	// Bail if this isn't a portfolio testimonial.
+	// Bail if this isn't a testimonial.
 	if ( toot_get_testimonial_post_type() !== $post->post_type )
 		return $post_link;
 
@@ -362,7 +362,7 @@ function toot_set_term_if_none( $post_id, $taxonomy, $default = 0 ) {
 
 /**
  * Filters the Breadcrumb Trail plugin arguments.  We're basically just telling it to show the
- * `testimonial_category` taxonomy when viewing single portfolio testimonials.
+ * `testimonial_category` taxonomy when viewing single testimonials.
  *
  * @since  1.0.0
  * @access public

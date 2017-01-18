@@ -309,8 +309,8 @@ final class Toot_Settings_Page {
 	public function help_tab_general() { ?>
 
 		<ul>
-			<li><?php _e( '<strong>Title:</strong> Allows you to set the title for the portfolio section on your site. This is general shown on the portfolio testimonials archive, but themes and other plugins may use it in other ways.', 'toot' ); ?></li>
-			<li><?php _e( '<strong>Description:</strong> This is the description for your portfolio. Some themes may display this on the portfolio testimonials archive.', 'toot' ); ?></li>
+			<li><?php _e( '<strong>Title:</strong> Allows you to set the title for the testimonials section on your site. This is general shown on the testimonials archive, but themes and other plugins may use it in other ways.', 'toot' ); ?></li>
+			<li><?php _e( '<strong>Description:</strong> This is the description for your testimonials page. Some themes may display this on the testimonials archive.', 'toot' ); ?></li>
 		</ul>
 	<?php }
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Template tags related to portfolio testimonials for theme authors to use in their theme templates.
+ * Template tags related to testimonials for theme authors to use in their theme templates.
  *
  * @package    Toot
  * @subpackage Includes

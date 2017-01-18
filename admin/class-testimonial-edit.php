@@ -182,7 +182,7 @@ final class Toot_Testimonial_Edit {
 
 	/**
 	 * Filter on the post author drop-down (used in the "Author" meta box) to only show users
-	 * of roles that have the correct capability for editing portfolio testimonials.
+	 * of roles that have the correct capability for editing testimonials.
 	 *
 	 * @since  1.0.0
 	 * @access public

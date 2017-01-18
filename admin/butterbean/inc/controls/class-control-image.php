@@ -63,12 +63,12 @@ class ButterBean_Control_Image extends ButterBean_Control {
 		$this->l10n = wp_parse_args(
 			$this->l10n,
 			array(
-				'upload'      => esc_html__( 'Add image',         'custom-content-portfolio' ),
-				'set'         => esc_html__( 'Set as image',      'custom-content-portfolio' ),
-				'choose'      => esc_html__( 'Choose image',      'custom-content-portfolio' ),
-				'change'      => esc_html__( 'Change image',      'custom-content-portfolio' ),
-				'remove'      => esc_html__( 'Remove image',      'custom-content-portfolio' ),
-				'placeholder' => esc_html__( 'No image selected', 'custom-content-portfolio' )
+				'upload'      => esc_html__( 'Add image',         'toot' ),
+				'set'         => esc_html__( 'Set as image',      'toot' ),
+				'choose'      => esc_html__( 'Choose image',      'toot' ),
+				'change'      => esc_html__( 'Change image',      'toot' ),
+				'remove'      => esc_html__( 'Remove image',      'toot' ),
+				'placeholder' => esc_html__( 'No image selected', 'toot' )
 			)
 		);
 	}

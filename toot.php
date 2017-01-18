@@ -9,13 +9,6 @@
  * Text Domain: testimonials
  * Domain Path: /languages
  *
- * The Toot plugin was created to solve the problem of theme developers continuing
- * to incorrectly add custom post types to handle portfolios within their themes.  This plugin allows
- * any theme developer to build a "portfolio" theme without having to code the functionality.  This
- * gives more time for design and makes users happy because their data isn't lost when they switch to
- * a new theme.  Oh, and, this plugin lets creative folk put together a portfolio of their work on
- * their site.
- *
  * This program is free software; you can redistribute it and/or modify it under the terms of the GNU
  * General Public License version 2, as published by the Free Software Foundation.  You may NOT assume
  * that you can use any other version of the GPL.
