@@ -330,7 +330,7 @@ final class Testimonial_Edit {
 		$screen->add_help_tab(
 			array(
 				'id'       => 'title_editor',
-				'title'    => esc_html__( 'Title and Editor', 'toot' ),
+				'title'    => esc_html__( 'Author and Content', 'toot' ),
 				'callback' => array( $this, 'help_tab_title_editor' )
 			)
 		);
@@ -358,8 +358,8 @@ final class Testimonial_Edit {
 	public function help_tab_title_editor() { ?>
 
 		<ul>
-			<li><?php _e( "<strong>Title:</strong> Enter a title for your testimonial. After you enter a title, you'll see the permalink below, which you can edit.", 'toot' ); ?></li>
-			<li><?php _e( '<strong>Editor:</strong> The editor allows you to add or edit content for your testimonial. You can insert text, media, or shortcodes.', 'toot' ); ?></li>
+			<li><?php _e( "<strong>Author:</strong> Enter a author for your testimonial. After you enter a author, you'll see the permalink below, which you can edit.", 'toot' ); ?></li>
+			<li><?php _e( '<strong>Editor:</strong> The editor allows you to add or edit content for your testimonial. This should be the quoted text for the testimonial.', 'toot' ); ?></li>
 		</ul>
 	<?php }
 
@@ -378,7 +378,7 @@ final class Testimonial_Edit {
 
 		<ul>
 			<li><?php _e( '<strong>URL:</strong> The URL to the Web site or page associated with the testimonial, such as a client Web site.', 'toot' ); ?></li>
-			<li><?php _e( '<strong>Email:</strong> Todo - description', 'toot' ); ?></li>
+			<li><?php _e( "<strong>Email:</strong> An email address for the author of the testimonial. This is used to get the author's avatar if no image is set.", 'toot' ); ?></li>
 		</ul>
 	<?php }
 

@@ -395,7 +395,7 @@ final class Manage_Testimonials {
 			<li><?php esc_html_e( 'You can hide/display columns based on your needs and decide how many testimonials to list per screen using the Screen Options tab.', 'toot' ); ?></li>
 			<li><?php esc_html_e( 'You can filter the list of testimonials by post status using the text links in the upper left to show All, Published, Draft, or Trashed testimonials. The default view is to show all testimonials.', 'toot' ); ?></li>
 			<li><?php esc_html_e( 'You can view testimonials in a simple title list or with an excerpt. Choose the view you prefer by clicking on the icons at the top of the list on the right.', 'toot' ); ?></li>
-			<li><?php esc_html_e( 'You can refine the list to show only testimonials in a specific category, with a specific tag, or from a specific month by using the dropdown menus above the testimonials list. Click the Filter button after making your selection. You also can refine the list by clicking on the testimonial author, category or tag in the posts list.', 'toot' ); ?></li>
+			<li><?php esc_html_e( 'You can refine the list to show only testimonials in a specific category or from a specific month by using the dropdown menus above the testimonials list. Click the Filter button after making your selection. You also can refine the list by clicking on a category in the list.', 'toot' ); ?></li>
 		</ul>
 	<?php }
 

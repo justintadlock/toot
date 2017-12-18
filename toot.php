@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Toot
  * Plugin URI:  http://themehybrid.com/plugins/toot
- * Description: Testimonials plugin in development.
+ * Description: A testimonials plugin for WordPress.
  * Version:     1.0.0-dev
  * Author:      Justin Tadlock
  * Author URI:  http://themehybrid.com
