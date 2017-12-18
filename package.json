@@ -1,0 +1,27 @@
+{
+  "name": "toot",
+  "version": "1.0.0",
+  "description": "A testimonials plugin for WordPress.",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justintadlock/toot.git"
+  },
+  "keywords": [
+    "testimonial"
+  ],
+  "author": "Justin Tadlock",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/justintadlock/toot/issues"
+  },
+  "homepage": "https://github.com/justintadlock/toot#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^3.0.0"
+  }
+}
