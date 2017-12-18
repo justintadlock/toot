@@ -63,6 +63,9 @@ final class Toot_Testimonial_Edit {
 		// Add custom option to the publish/submit meta box.
 		add_action( 'post_submitbox_misc_actions', array( $this, 'submitbox_misc_actions' ) );
 
+		// Add custom meta boxes.
+		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
+
 		// Save metadata on post save.
 		add_action( 'save_post', array( $this, 'update' ) );
 
@@ -99,6 +102,22 @@ final class Toot_Testimonial_Edit {
 			.misc-pub-testimonial-sticky label {
 				display: block;
 				margin:  8px 0 8px 2px;
+			}
+
+			.toot-control {
+				margin-bottom: 20px;
+			}
+
+			.toot-control__label {
+				display: block;
+				font-weight: bold;
+				margin-bottom: 4px;
+			}
+
+			.toot-control__description {
+				display: block;
+				margin-top: 0;
+				margin-bottom: 4px;
 			}
 		</style>
 	<?php }
@@ -150,6 +169,60 @@ final class Toot_Testimonial_Edit {
 	<?php }
 
 	/**
+	 * Adds custom meta boxes.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @param  string  $post_type
+	 * @return void
+	 */
+	public function add_meta_boxes( $post_type ) {
+
+		add_meta_box(
+			'toot-testimonial',
+			esc_html__( 'Testimonial Details', 'toot' ),
+			array( $this, 'meta_box' ),
+			$post_type,
+			'normal',
+			'default'
+		);
+	}
+
+	/**
+	 * Callback function for displaying the testimonial details meta box.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @param  object  $object
+	 * @param  array   $box
+	 * @return void
+	 */
+	public function meta_box( $post, $box ) {
+
+		$url   = toot_get_testimonial_meta( $post->ID, 'url' );
+		$email = toot_get_testimonial_meta( $post->ID, 'email' );
+
+		// Output the nonce field.
+		wp_nonce_field( "testimonial_details_{$post->ID}", 'toot_testimonial_details_nonce' ); ?>
+
+		<div class="toot-control">
+			<label>
+				<span class="toot-control__label"><?php esc_html_e( 'URL', 'toot' ); ?></span>
+				<span class="toot-control__description description"><?php esc_html_e( 'Enter the URL of the testimonial Web page.', 'toot' ); ?></span>
+				<input type="url" value="<?php echo esc_attr( $url ); ?>" name="toot_testimonial_url" class="widefat" placeholder="https://example.com" />
+			</label>
+		</div>
+
+		<div class="toot-control">
+			<label>
+				<span class="toot-control__label"><?php esc_html_e( 'Email', 'toot' ); ?></span>
+				<span class="toot-control__description description"><?php esc_html_e( 'Enter the email address of the testimonial author to use their avatar.', 'toot' ); ?></span>
+				<input type="email" value="<?php echo esc_attr( $email ); ?>" name="toot_testimonial_email" class="widefat" placeholder="example@example.com" />
+			</label>
+		</div>
+	<?php }
+
+	/**
 	 * Save testimonial details settings on post save.
 	 *
 	 * @since  1.0.0
@@ -160,19 +233,43 @@ final class Toot_Testimonial_Edit {
 	public function update( $post_id ) {
 
 		// Verify the nonce.
-		if ( ! toot_verify_nonce_post( "stick_testimonial_{$post_id}", 'toot_sticky_nonce' ) )
-			return;
+		if ( toot_verify_nonce_post( "stick_testimonial_{$post_id}", 'toot_sticky_nonce' ) ) {
 
-		// Is the sticky checkbox checked?
-		$should_stick = ! empty( $_POST['toot_testimonial_sticky'] );
+			// Is the sticky checkbox checked?
+			$should_stick = ! empty( $_POST['toot_testimonial_sticky'] );
 
-		// If checked, add the testimonial if it is not sticky.
-		if ( $should_stick && ! toot_is_testimonial_sticky( $post_id ) )
-			toot_add_sticky_testimonial( $post_id );
+			// If checked, add the testimonial if it is not sticky.
+			if ( $should_stick && ! toot_is_testimonial_sticky( $post_id ) )
+				toot_add_sticky_testimonial( $post_id );
 
-		// If not checked, remove the testimonial if it is sticky.
-		elseif ( ! $should_stick && toot_is_testimonial_sticky( $post_id ) )
-			toot_remove_sticky_testimonial( $post_id );
+			// If not checked, remove the testimonial if it is sticky.
+			elseif ( ! $should_stick && toot_is_testimonial_sticky( $post_id ) )
+				toot_remove_sticky_testimonial( $post_id );
+		}
+
+		// Verify the nonce.
+		if ( toot_verify_nonce_post( "testimonial_details_{$post_id}", 'toot_testimonial_details_nonce' ) ) {
+
+			$url   = toot_get_testimonial_meta( $post_id, 'url'   );
+			$email = toot_get_testimonial_meta( $post_id, 'email' );
+
+			$new_url   = ! empty( $_POST['toot_testimonial_url'] )   ? esc_url_raw(    $_POST['toot_testimonial_url']   ) : '';
+			$new_email = ! empty( $_POST['toot_testimonial_email'] ) ? sanitize_email( $_POST['toot_testimonial_email'] ) : '';
+
+			// Handle URL meta.
+			if ( '' == $new_url && $url )
+				toot_delete_testimonial_meta( $post_id, 'url' );
+
+			elseif ( $url !== $new_url )
+				toot_set_testimonial_meta( $post_id, 'url', $new_url );
+
+			// Handle email meta.
+			if ( '' == $new_email && $email )
+				toot_delete_testimonial_meta( $post_id, 'email' );
+
+			elseif ( $email !== $new_email )
+				toot_set_testimonial_meta( $post_id, 'email', $new_email );
+		}
 	}
 
 	/**

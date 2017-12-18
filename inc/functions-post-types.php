@@ -164,7 +164,6 @@ function toot_register_post_types() {
 			'title',
 			'editor',
 			'thumbnail',
-			'custom-fields',
 
 			// Theme/Plugin feature support.
 			'custom-background', // Custom Background Extended

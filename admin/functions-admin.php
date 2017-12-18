@@ -13,9 +13,6 @@
 # Register scripts and styles.
 add_action( 'admin_enqueue_scripts', 'toot_admin_register_scripts', 0 );
 
-# Registers testimonial details box sections, controls, and settings.
-add_action( 'butterbean_register', 'toot_testimonial_details_register', 5, 2 );
-
 /**
  * Registers admin scripts.
  *
@@ -27,7 +24,7 @@ function toot_admin_register_scripts() {
 
 	$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-	wp_register_script( 'toot-edit-testimonial', toot_plugin()->js_uri . "edit-testimonial{$min}.js", array( 'jquery', 'wp-util' ), '', true );
+	wp_register_script( 'toot-edit-testimonial', toot_plugin()->js_uri . "edit-testimonial{$min}.js", array( 'jquery' ), '', true );
 
 	// Localize our script with some text we want to pass in.
 	$i18n = array(
@@ -36,61 +33,6 @@ function toot_admin_register_scripts() {
 	);
 
 	wp_localize_script( 'toot-edit-testimonial', 'toot_i18n', $i18n );
-}
-
-/**
- * Registers the default cap groups.
- *
- * @since  1.0.0
- * @access public
- * @return void
- */
-function toot_testimonial_details_register( $butterbean, $post_type ) {
-
-	if ( $post_type !== toot_get_testimonial_post_type() )
-		return;
-
-	$butterbean->register_manager( 'toot-testimonial',
-		array(
-			'post_type' => $post_type,
-			'context'   => 'normal',
-			'priority'  => 'high',
-			'label'     => esc_html__( 'Testimonial Details', 'toot' )
-		)
-	);
-
-	$manager = $butterbean->get_manager( 'toot-testimonial' );
-
-	/* === Register Sections === */
-
-	// General section.
-	$manager->register_section( 'general',
-		array(
-			'label' => esc_html__( 'General', 'toot' ),
-			'icon'  => 'dashicons-admin-generic'
-		)
-	);
-
-	/* === Register Fields === */
-
-	$url_args = array(
-		'type'        => 'url',
-		'section'     => 'general',
-		'attr'        => array( 'class' => 'widefat', 'placeholder' => 'http://themehybrid.com' ),
-		'label'       => esc_html__( 'URL', 'toot' ),
-		'description' => esc_html__( 'Enter the URL of the testimonial Web page.', 'toot' )
-	);
-
-	$email_args = array(
-		'type'        => 'email',
-		'section'     => 'general',
-		'attr'        => array( 'class' => 'widefat', 'placeholder' => __( 'example@example.com', 'toot' ) ),
-		'label'       => esc_html__( 'Email', 'toot' ),
-		'description' => esc_html__( 'Enter the email address of the testimonial author to use their avatar.', 'toot' )
-	);
-
-	$manager->register_field( 'url',      $url_args,      array( 'sanitize_callback' => 'esc_url_raw'    ) );
-	$manager->register_field( 'email',    $email_args,    array( 'sanitize_callback' => 'sanitize_email' ) );
 }
 
 /**
