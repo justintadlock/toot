@@ -130,6 +130,7 @@ function toot_register_post_types() {
 		'exclude_from_search' => false,
 		'show_ui'             => true,
 		'show_in_menu'        => true,
+		'show_in_rest'        => true,
 		'menu_position'       => null,
 		'menu_icon'           => 'dashicons-testimonial',
 		'can_export'          => true,
@@ -141,6 +142,13 @@ function toot_register_post_types() {
 		'map_meta_cap'        => true,
 		'capabilities'        => toot_get_testimonial_capabilities(),
 		'labels'              => toot_get_testimonial_labels(),
+
+		// Gutenberg template.
+		'template' => array(
+			array( 'core/paragraph', array( 'placeholder' => __( 'Testimonial content&hellip', 'toot' ) ) )
+		),
+
+		'template_lock' => true,
 
 		// The rewrite handles the URL structure.
 		'rewrite' => array(
@@ -156,10 +164,12 @@ function toot_register_post_types() {
 			'title',
 			'editor',
 			'thumbnail',
+			'custom-fields',
 
 			// Theme/Plugin feature support.
 			'custom-background', // Custom Background Extended
 			'custom-header',     // Custom Header Extended
+			'wpcom-markdown',    // Jetpack Markdown
 		)
 	);
 

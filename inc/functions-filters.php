@@ -32,9 +32,6 @@ add_filter( 'post_type_link', 'toot_post_type_link', 10, 2 );
 # Force taxonomy term selection.
 add_action( 'save_post', 'toot_force_term_selection' );
 
-# Filter the Breadcrumb Trail plugin args.
-add_filter( 'breadcrumb_trail_args', 'toot_breadcrumb_trail_args', 15 );
-
 /**
  * Checks if the theme supports `testimonials`.  If not, it runs specific filters
  * to make themes without support work a little better.
@@ -68,12 +65,12 @@ function toot_template_include( $template ) {
 
 	// Author archive.
 	if ( toot_is_category() ) {
-		$templates[] = 'testimonial-category.php';
-		$templates[] = 'testimonial-archive.php';
+		$templates[] = 'archive-testimonial-category.php';
+		$templates[] = 'archive-testimonial.php';
 
 	// Testimonial archive.
 	} else if ( toot_is_testimonial_archive() ) {
-		$templates[] = 'testimonial-archive.php';
+		$templates[] = 'archive-testimonial.php';
 
 	// Single testimonial.
 	} else if ( toot_is_single_testimonial() ) {
@@ -81,7 +78,7 @@ function toot_template_include( $template ) {
 	}
 
 	// Fallback template.
-	$templates[] = 'testimonials.php';
+	$templates[] = 'toot.php';
 
 	// Check if we have a template.
 	$has_template = locate_template( apply_filters( 'toot_template_hierarchy', $templates ) );
@@ -103,10 +100,10 @@ function toot_the_content_filter( $content ) {
 
 	if ( in_the_loop() && toot_is_single_testimonial() && toot_is_testimonial() && ! post_password_required() ) {
 
-		$testimonial_meta = '';
+		$_content = toot_get_testimonial_output();
 
-		if ( $testimonial_meta )
-			$content .= sprintf( '<p class="testimonial-meta">%s</p>', $testimonial_meta );
+		if ( $_content )
+			$content = $_content;
 	}
 
 	return $content;
@@ -358,24 +355,4 @@ function toot_set_term_if_none( $post_id, $taxonomy, $default = 0 ) {
 			wp_set_post_terms( $post_id, $slug_or_id, $taxonomy, true );
 		}
 	}
-}
-
-/**
- * Filters the Breadcrumb Trail plugin arguments.  We're basically just telling it to show the
- * `testimonial_category` taxonomy when viewing single testimonials.
- *
- * @since  1.0.0
- * @access public
- * @param  array  $args
- * @return array
- */
-function toot_breadcrumb_trail_args( $args ) {
-
-	$testimonial_type = toot_get_testimonial_post_type();
-	$testimonial_base = toot_get_testimonial_rewrite_base();
-
-	if ( false === strpos( $testimonial_base, '%' ) && ! isset( $args['post_taxonomy'][ $testimonial_type ] ) )
-		$args['post_taxonomy'][ $testimonial_type ] = toot_get_category_taxonomy();
-
-	return $args;
 }

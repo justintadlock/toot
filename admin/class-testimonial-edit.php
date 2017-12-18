@@ -44,7 +44,7 @@ final class Toot_Testimonial_Edit {
 	 */
 	public function load() {
 
-		$screen       = get_current_screen();
+		$screen           = get_current_screen();
 		$testimonial_type = toot_get_testimonial_post_type();
 
 		// Bail if not on the testimonials screen.
@@ -114,11 +114,6 @@ final class Toot_Testimonial_Edit {
 	 * @return void
 	 */
 	public function submitbox_misc_actions( $post = '' ) {
-
-		// Pre-4.4.0 compatibility.
-		if ( ! $post ) {
-			global $post;
-		}
 
 		// Get the post type object.
 		$post_type_object = get_post_type_object( toot_get_testimonial_post_type() );

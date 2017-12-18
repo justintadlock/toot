@@ -27,9 +27,10 @@ function toot_register_meta() {
 		'url',
 		array(
 			'sanitize_callback' => 'esc_url_raw',
-			'auth_callback'     => '__return_false',
+			'auth_callback'     => '__return_true',
 			'single'            => true,
-			'show_in_rest'      => true
+			'show_in_rest'      => true,
+			'type'              => 'string'
 		)
 	);
 
@@ -38,9 +39,10 @@ function toot_register_meta() {
 		'email',
 		array(
 			'sanitize_callback' => 'sanitize_email',
-			'auth_callback'     => '__return_false',
+			'auth_callback'     => '__return_true',
 			'single'            => true,
-			'show_in_rest'      => true
+			'show_in_rest'      => true,
+			'type'              => 'string'
 		)
 	);
 }

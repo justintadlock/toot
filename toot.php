@@ -177,6 +177,7 @@ final class Toot_Plugin {
 		require_once( $this->dir_path . 'inc/functions-meta.php'        );
 		require_once( $this->dir_path . 'inc/functions-rewrite.php'     );
 		require_once( $this->dir_path . 'inc/functions-post-types.php'  );
+		require_once( $this->dir_path . 'inc/functions-shortcodes.php'  );
 		require_once( $this->dir_path . 'inc/functions-taxonomies.php'  );
 		require_once( $this->dir_path . 'inc/functions-testimonial.php' );
 
@@ -208,6 +209,18 @@ final class Toot_Plugin {
 
 		// Register activation hook.
 		register_activation_hook( __FILE__, array( $this, 'activation' ) );
+
+		global $wp_embed;
+
+		/* Use same default filters as 'the_content' with a little more flexibility. */
+		add_filter( 'toot_get_testimonial_content', array( $wp_embed, 'run_shortcode' ),   5 );
+		add_filter( 'toot_get_testimonial_content', array( $wp_embed, 'autoembed'     ),   5 );
+		add_filter( 'toot_get_testimonial_content',                   'wptexturize',       10 );
+		add_filter( 'toot_get_testimonial_content',                   'convert_smilies',   15 );
+		add_filter( 'toot_get_testimonial_content',                   'convert_chars',     20 );
+		add_filter( 'toot_get_testimonial_content',                   'wpautop',           25 );
+		add_filter( 'toot_get_testimonial_content',                   'do_shortcode',      30 );
+		add_filter( 'toot_get_testimonial_content',                   'shortcode_unautop', 35 );
 	}
 
 	/**

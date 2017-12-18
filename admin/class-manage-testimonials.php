@@ -46,7 +46,7 @@ final class Toot_Manage_Testimonials {
 	 */
 	public function load() {
 
-		$screen       = get_current_screen();
+		$screen           = get_current_screen();
 		$testimonial_type = toot_get_testimonial_post_type();
 
 		// Bail if not on the testimonials screen.
@@ -259,7 +259,7 @@ final class Toot_Manage_Testimonials {
 	function row_actions( $actions, $post ) {
 
 		$post_type_object = get_post_type_object( toot_get_testimonial_post_type() );
-		$testimonial_id = toot_get_testimonial_id( $post->ID );
+		$testimonial_id   = toot_get_testimonial_id( $post->ID );
 
 		if ( 'trash' === get_post_status( $testimonial_id ) || ! current_user_can( $post_type_object->cap->publish_posts ) )
 			return $actions;
