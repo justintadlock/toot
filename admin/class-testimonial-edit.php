@@ -10,13 +10,15 @@
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
+namespace Toot;
+
 /**
  * Testimonial edit screen functionality.
  *
  * @since  1.0.0
  * @access public
  */
-final class Toot_Testimonial_Edit {
+final class Testimonial_Edit {
 
 	/**
 	 * Sets up the needed actions.
@@ -398,4 +400,4 @@ final class Toot_Testimonial_Edit {
 	}
 }
 
-Toot_Testimonial_Edit::get_instance();
+Testimonial_Edit::get_instance();

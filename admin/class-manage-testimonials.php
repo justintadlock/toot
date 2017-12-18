@@ -10,13 +10,15 @@
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
+namespace Toot;
+
 /**
  * Adds additional columns and features to the testimonials admin screen.
  *
  * @since  1.0.0
  * @access public
  */
-final class Toot_Manage_Testimonials {
+final class Manage_Testimonials {
 
 	/**
 	 * Sets up the needed actions.
@@ -436,4 +438,4 @@ final class Toot_Manage_Testimonials {
 	}
 }
 
-Toot_Manage_Testimonials::get_instance();
+Manage_Testimonials::get_instance();

@@ -24,6 +24,8 @@
  * @license   http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
+namespace Toot;
+
 /**
  * Singleton class that sets up and initializes the plugin.
  *
@@ -31,7 +33,7 @@
  * @access public
  * @return void
  */
-final class Toot_Plugin {
+final class Plugin {
 
 	/**
 	 * Directory path to the plugin folder.
@@ -40,7 +42,7 @@ final class Toot_Plugin {
 	 * @access public
 	 * @var    string
 	 */
-	public $dir_path = '';
+	public $dir = '';
 
 	/**
 	 * Directory URI to the plugin folder.
@@ -49,25 +51,7 @@ final class Toot_Plugin {
 	 * @access public
 	 * @var    string
 	 */
-	public $dir_uri = '';
-
-	/**
-	 * JavaScript directory URI.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @var    string
-	 */
-	public $js_uri = '';
-
-	/**
-	 * CSS directory URI.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @var    string
-	 */
-	public $css_uri = '';
+	public $uri = '';
 
 	/**
 	 * Returns the instance.
@@ -154,11 +138,8 @@ final class Toot_Plugin {
 	 */
 	private function setup() {
 
-		$this->dir_path = trailingslashit( plugin_dir_path( __FILE__ ) );
-		$this->dir_uri  = trailingslashit( plugin_dir_url(  __FILE__ ) );
-
-		$this->js_uri  = trailingslashit( $this->dir_uri . 'js'  );
-		$this->css_uri = trailingslashit( $this->dir_uri . 'css' );
+		$this->dir = trailingslashit( plugin_dir_path( __FILE__ ) );
+		$this->uri = trailingslashit( plugin_dir_url(  __FILE__ ) );
 	}
 
 	/**
@@ -171,26 +152,26 @@ final class Toot_Plugin {
 	private function includes() {
 
 		// Load functions files.
-		require_once( $this->dir_path . 'inc/functions-filters.php'     );
-		require_once( $this->dir_path . 'inc/functions-general.php'     );
-		require_once( $this->dir_path . 'inc/functions-options.php'     );
-		require_once( $this->dir_path . 'inc/functions-meta.php'        );
-		require_once( $this->dir_path . 'inc/functions-rewrite.php'     );
-		require_once( $this->dir_path . 'inc/functions-post-types.php'  );
-		require_once( $this->dir_path . 'inc/functions-shortcodes.php'  );
-		require_once( $this->dir_path . 'inc/functions-taxonomies.php'  );
-		require_once( $this->dir_path . 'inc/functions-testimonial.php' );
+		require_once( $this->dir . 'inc/functions-filters.php'     );
+		require_once( $this->dir . 'inc/functions-general.php'     );
+		require_once( $this->dir . 'inc/functions-options.php'     );
+		require_once( $this->dir . 'inc/functions-meta.php'        );
+		require_once( $this->dir . 'inc/functions-rewrite.php'     );
+		require_once( $this->dir . 'inc/functions-post-types.php'  );
+		require_once( $this->dir . 'inc/functions-shortcodes.php'  );
+		require_once( $this->dir . 'inc/functions-taxonomies.php'  );
+		require_once( $this->dir . 'inc/functions-testimonial.php' );
 
 		// Load template files.
-		require_once( $this->dir_path . 'inc/template-testimonial.php' );
-		require_once( $this->dir_path . 'inc/template-general.php'     );
+		require_once( $this->dir . 'inc/template-testimonial.php' );
+		require_once( $this->dir . 'inc/template-general.php'     );
 
 		// Load admin files.
 		if ( is_admin() ) {
-			require_once( $this->dir_path . 'admin/functions-admin.php'           );
-			require_once( $this->dir_path . 'admin/class-manage-testimonials.php' );
-			require_once( $this->dir_path . 'admin/class-testimonial-edit.php'    );
-			require_once( $this->dir_path . 'admin/class-settings.php'            );
+			require_once( $this->dir . 'admin/functions-admin.php'           );
+			require_once( $this->dir . 'admin/class-manage-testimonials.php' );
+			require_once( $this->dir . 'admin/class-testimonial-edit.php'    );
+			require_once( $this->dir . 'admin/class-settings.php'            );
 		}
 	}
 
@@ -231,7 +212,7 @@ final class Toot_Plugin {
 	 */
 	public function i18n() {
 
-		load_plugin_textdomain( 'toot', false, trailingslashit( dirname( plugin_basename( __FILE__ ) ) ) . 'languages' );
+		load_plugin_textdomain( 'toot', false, trailingslashit( dirname( plugin_basename( __FILE__ ) ) ) . 'lang' );
 	}
 
 	/**
@@ -270,16 +251,16 @@ final class Toot_Plugin {
 }
 
 /**
- * Gets the instance of the `Toot_Plugin` class.  This function is useful for quickly grabbing data
+ * Gets the instance of the `Toot\Plugin` class.  This function is useful for quickly grabbing data
  * used throughout the plugin.
  *
  * @since  1.0.0
  * @access public
  * @return object
  */
-function toot_plugin() {
-	return Toot_Plugin::get_instance();
+function plugin() {
+	return Plugin::get_instance();
 }
 
 // Let's do this thang!
-toot_plugin();
+plugin();

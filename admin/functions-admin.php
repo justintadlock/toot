@@ -24,7 +24,7 @@ function toot_admin_register_scripts() {
 
 	$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-	wp_register_script( 'toot-edit-testimonial', toot_plugin()->js_uri . "edit-testimonial{$min}.js", array( 'jquery' ), '', true );
+	wp_register_script( 'toot-edit-testimonial', toot\plugin()->uri . "js/edit-testimonial{$min}.js", array( 'jquery' ), '', true );
 
 	// Localize our script with some text we want to pass in.
 	$i18n = array(

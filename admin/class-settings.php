@@ -10,13 +10,15 @@
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
+namespace Toot;
+
 /**
  * Sets up and handles the plugin settings screen.
  *
  * @since  1.0.0
  * @access public
  */
-final class Toot_Settings_Page {
+final class Settings_Page {
 
 	/**
 	 * Settings page name.
@@ -353,4 +355,4 @@ final class Toot_Settings_Page {
 	}
 }
 
-Toot_Settings_Page::get_instance();
+Settings_Page::get_instance();
