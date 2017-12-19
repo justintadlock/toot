@@ -222,6 +222,14 @@ final class Testimonial_Edit {
 				<input type="email" value="<?php echo esc_attr( $email ); ?>" name="toot_testimonial_email" class="widefat" placeholder="example@example.com" />
 			</label>
 		</div>
+
+		<div class="toot-control">
+			<label>
+				<span class="toot-control__label"><?php esc_html_e( 'Shortcode', 'toot' ); ?></span>
+				<span class="toot-control__description description"><?php esc_html_e( 'Use this shortcode to output the testimonial in a location of your choosing.', 'toot' ); ?></span>
+				<input type="text" class="widefat" readonly="readonly" value="[toot_testimonial id=&quot;<?php echo esc_attr( $post->ID ); ?>&quot;]" />
+			</label>
+		</div>
 	<?php }
 
 	/**

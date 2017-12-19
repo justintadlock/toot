@@ -46,6 +46,7 @@ function toot_testimonial_shortcode( $attr = array() ) {
 		'order'    => 'DESC',
 		'orderby'  => 'date',
 		'category' => '',
+		'id'       => '',
 		'class'    => ''
 	);
 
@@ -56,6 +57,9 @@ function toot_testimonial_shortcode( $attr = array() ) {
 		'order'          => $attr['order'],
 		'orderby'        => $attr['orderby'],
 	);
+
+	if ( $attr['id'] )
+		$query_args['post__in'] = array( absint( $attr['id'] ) );
 
 	return _toot_get_shortcode_loop( $query_args, $attr );
 }
