@@ -6,7 +6,7 @@
  * Version:     1.0.0-dev
  * Author:      Justin Tadlock
  * Author URI:  http://themehybrid.com
- * Text Domain: testimonials
+ * Text Domain: toot
  * Domain Path: /languages
  *
  * This program is free software; you can redistribute it and/or modify it under the terms of the GNU
