@@ -46,7 +46,7 @@ function toot_testimonial_shortcode( $attr = array() ) {
 		'order'    => 'DESC',
 		'orderby'  => 'date',
 		'category' => '',
-		'class'    => 'testimonial'
+		'class'    => ''
 	);
 
 	$attr = shortcode_atts( $defaults, $attr, 'toot_testimonial' );
@@ -80,7 +80,7 @@ function toot_testimonials_shortcode( $attr = array() ) {
 		'order'    => 'DESC',
 		'orderby'  => 'date',
 		'category' => '',
-		'class'    => 'testimonial',
+		'class'    => '',
 		'limit'    => 10
 	);
 

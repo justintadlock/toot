@@ -374,7 +374,7 @@ function toot_get_testimonial_image( $args = array() ) {
 function toot_get_testimonial_template() {
 
 	$template = '
-		<blockquote class="%1$s">
+		<blockquote class="testimonial %1$s">
 			%2$s
 			<footer class="testimonial__meta">
 				%3$s
@@ -414,7 +414,7 @@ function toot_get_testimonial_output( $post_id = '' ) {
 	$image   = toot_get_testimonial_image(   array( 'post_id' => $post_id ) );
 	$author  = toot_get_testimonial_cite(    array( 'post_id' => $post_id ) );
 
-	$html = sprintf( toot_get_testimonial_template(), 'testimonial', $content, $image, $author );
+	$html = sprintf( toot_get_testimonial_template(), '', $content, $image, $author );
 
 	return apply_filters( 'toot_get_testimonial_output', $html, $post_id );
 }
