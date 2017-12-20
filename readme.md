@@ -12,7 +12,7 @@ Toot is a testimonials plugin for people to share testimonials of their products
 
 ## Professional Support
 
-If you need professional plugin support from me, the plugin author, you can access the support forums at [Theme Hybrid](http://themehybrid.com/board/topics), which is a professional WordPress help/support site where I handle support for all my plugins and themes for a community of 70,000+ users (and growing).
+If you need professional plugin support from me, the plugin author, you can access the support forums at [Theme Hybrid](https://themehybrid.com/board/topics), which is a professional WordPress help/support site where I handle support for all my plugins and themes for a community of 75,000+ users (and growing).
 
 ## Documentation
 
@@ -79,7 +79,7 @@ This tells the Toot plugin that you'll be handling the code output on the front 
 
 ### Template hierarchy
 
-The following is the template hierarchy for the plugin:
+The following is the template hierarchy for the plugin.  If none of these templates are present, the plugin falls back to the normal WordPress template hierarchy.
 
 **Category archive:**
 
