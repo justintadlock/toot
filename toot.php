@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: Toot
- * Plugin URI:  http://themehybrid.com/plugins/toot
+ * Plugin URI:  https://themehybrid.com/plugins/toot
  * Description: A testimonials plugin for WordPress.
  * Version:     1.0.0-dev
  * Author:      Justin Tadlock
- * Author URI:  http://themehybrid.com
+ * Author URI:  https://themehybrid.com
  * Text Domain: toot
  * Domain Path: /languages
  *
@@ -20,7 +20,7 @@
  * @version   1.0.0
  * @author    Justin Tadlock <justintadlock@gmail.com>
  * @copyright Copyright (c) 2017, Justin Tadlock
- * @link      http://themehybrid.com/plugins/toot
+ * @link      https://themehybrid.com/plugins/toot
  * @license   http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
