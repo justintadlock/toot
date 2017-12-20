@@ -39,9 +39,9 @@ function toot_get_category_capabilities() {
 
 	$caps = array(
 		'manage_terms' => 'manage_testimonial_categories',
-		'edit_terms'   => 'manage_testimonial_categories',
-		'delete_terms' => 'manage_testimonial_categories',
-		'assign_terms' => 'edit_testimonials'
+		'edit_terms'   => 'edit_testimonial_categories',
+		'delete_terms' => 'delete_testimonial_categories',
+		'assign_terms' => 'assign_testimonial_categories'
 	);
 
 	return apply_filters( 'toot_get_category_capabilities', $caps );

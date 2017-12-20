@@ -28,6 +28,9 @@ $role = get_role( 'administrator' );
 if ( ! is_null( $role ) ) {
 
 	// Taxonomy caps.
+	$role->remove_cap( 'assign_testimonial_categories' );
+	$role->remove_cap( 'delete_testimonial_categories' );
+	$role->remove_cap( 'edit_testimonial_categories'   );
 	$role->remove_cap( 'manage_testimonial_categories' );
 
 	// Post type caps.

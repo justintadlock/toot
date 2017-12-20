@@ -152,15 +152,16 @@ final class Plugin {
 	private function includes() {
 
 		// Load functions files.
-		require_once( $this->dir . 'inc/functions-filters.php'     );
-		require_once( $this->dir . 'inc/functions-general.php'     );
-		require_once( $this->dir . 'inc/functions-options.php'     );
-		require_once( $this->dir . 'inc/functions-meta.php'        );
-		require_once( $this->dir . 'inc/functions-rewrite.php'     );
-		require_once( $this->dir . 'inc/functions-post-types.php'  );
-		require_once( $this->dir . 'inc/functions-shortcodes.php'  );
-		require_once( $this->dir . 'inc/functions-taxonomies.php'  );
-		require_once( $this->dir . 'inc/functions-testimonial.php' );
+		require_once( $this->dir . 'inc/functions-capabilities.php' );
+		require_once( $this->dir . 'inc/functions-filters.php'      );
+		require_once( $this->dir . 'inc/functions-general.php'      );
+		require_once( $this->dir . 'inc/functions-options.php'      );
+		require_once( $this->dir . 'inc/functions-meta.php'         );
+		require_once( $this->dir . 'inc/functions-rewrite.php'      );
+		require_once( $this->dir . 'inc/functions-post-types.php'   );
+		require_once( $this->dir . 'inc/functions-shortcodes.php'   );
+		require_once( $this->dir . 'inc/functions-taxonomies.php'   );
+		require_once( $this->dir . 'inc/functions-testimonial.php'  );
 
 		// Load template files.
 		require_once( $this->dir . 'inc/template-testimonial.php' );
@@ -232,6 +233,9 @@ final class Plugin {
 		if ( ! is_null( $role ) ) {
 
 			// Taxonomy caps.
+			$role->add_cap( 'assign_testimonial_categories' );
+			$role->add_cap( 'delete_testimonial_categories' );
+			$role->add_cap( 'edit_testimonial_categories'   );
 			$role->add_cap( 'manage_testimonial_categories' );
 
 			// Post type caps.
